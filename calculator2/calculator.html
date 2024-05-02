@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator UI</title>
+    <link rel="stylesheet" href="calculator.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="calculator">
+            <!-- display part -->
+            <form>
+            <div class="display">
+                <input type="text" id="display" >
+            </div>
+
+            <!-- input button part -->
+             <div>
+                <input type="text" value="AC" class="operator" id="clear" onclick="clear()">
+                <input type="text" value="Del" class="operator">
+                <input type="text" value="." class="operator" >
+                <input type="text" value="+" onclick="addition()" class="operator">
+             </div>
+             <div>
+                <input type="button" value="7" >
+                <input type="button" value="8" >
+                <input type="button" value="9" >
+                <input type="button" value="-" onclick="substraction()" class="operator">
+             </div>
+             <div>
+                <input type="button" value="4" >
+                <input type="button" value="5" onclick="display('5')">
+                <input type="button" value="6" >
+                <input type="button" value="*" onclick="multiplication()" class="operator">
+             </div>
+             <div>
+                <input type="button" value="1" >
+                <input type="button" value="2" >
+                <input type="button" value="3" >
+                <input type="button" value="/" onclick="division()" class="operator">
+             </div>
+             <div>
+                <input type="button" value="00" >
+                <input type="button" value="0" >
+                <input type="button" value="=" class="operator" onclick="display.value = eval(display.value)">
+                <input type="button" value="%" onclick="percentage()" onclick ="display.value +='%' " class="operator">
+             </div>
+            </form>
+        </div>
+    </div> 
+    
+    <script src="calculator.js"></script>
+</body>
+
+</html>
