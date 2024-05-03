@@ -38,12 +38,21 @@ function percentage (num1,num2){
 var result = percentage()
 document.getElementById("percentage").innerHTML = result
 
+
 // display function
 function display(){
     document.getElementById("display").value += value
 }
 
+
 // clear function
 function clear(){
     document.getElementById("clear").value = ''
 }
+
+
+function addDisplay(value){
+      var display = value ++ ;
+      document.getElementById
+}
+ 
