@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "poppins", arial, sans-serif;
+}
+
+body {
+    background-color: plum;
+}
+
+
+.Container {
+    height: 350px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-left: rgb(186, 57, 186) solid 10px;
+    border-radius: 10px;
+    padding: 50px;
+}
+
+#heading {
+    color: rgb(186, 57, 186);
+    margin-bottom: 30px;
+}
+
+i {
+    font-size: 30px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 2px;
+
+}
+
+a:hover {
+    border: 5px white solid;
+}
+
+.fa-facebook {
+    color: #0000ff;
+}
+
+.fa-twitter {
+    color: #19a6de;
+}
+
+.fa-square-instagram {
+    color: purple;
+}
+
+.fa-whatsapp {
+    color: #008000;
+}
+
+.fa-linkedin {
+    color: hsl(230, 80%, 48%);
+}
+
+#link {
+    width: 400px;
+    height: 35px;
+}
+
+h4 {
+    margin-bottom: 20px;
+}
+
+#copy-button {
+    width: 400px;
+    height: 35px;
+    background-color: rgb(186, 57, 186);
+    color: white;
+    display: block;
+    border-radius: 5px;
+    margin: 20px 0px;
+    padding: 7px;   
+}
