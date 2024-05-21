@@ -1,0 +1,52 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    height: 700px;
+    width: 600px;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center ;
+    border-radius: 20px;
+    border-color: rgb(14, 14, 76) solid 10px;
+
+}
+
+
+h1{
+color:blue ;
+margin-bottom: 15px;
+margin-top: 100px;
+text-align: center;
+}
+
+h3{
+    color:rgb(11, 83, 49) ;
+    margin-bottom: 15px;
+    text-align: center;
+    }
+
+#input{
+    width: 300px;
+    padding: 5px;        
+}
+
+#addButton, #button2, #delete-btn{
+    border: 10px;
+    border-radius: 10px ;
+    margin: 5px;
+    width: 100px;
+    padding: 7px;
+    background-color: aqua;
+}
+
+li{
+  font-size: 20px ;
+  color: black;
+}
+

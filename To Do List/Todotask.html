@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task list</title>
+    <link rel="stylesheet" href="todotask.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div id="input-div">
+            <h1>My To Do List</h1>
+            <h3 id="taskAchieve"></h3>
+            <input type="text" id="input" autocomplete="off" placeholder="Enter a task">
+            <button onclick="addTask()" id="addButton">Add Task</button>
+        </div>
+        <div>
+            <ol id="list">
+
+            </ol>
+        </div>
+    </div>
+    <script>
+
+        var listID = 0;
+        var completeTask = 0;
+        var totalCount = 0;
+
+        function addTask() {
+            var input = document.getElementById("input");
+            var task = input.value;
+
+            if (input.value == "") {
+                alert("Please enter a task")
+            }
+            else {
+                var taskList = document.getElementById("list");
+                taskList.innerHTML += `
+                <div id="div-${listID}">
+                    <li id="list-${listID}">${task}</li> <button id ="button2"  onclick="completedTask('list-${listID}')" >Completed</button> <button id= "delete-btn" onclick ="deleteTask('div-${listID}')">Delete</button>
+                </div>`
+                listID++;
+                totalCount++;
+                input.value = "";
+            }
+        }
+
+        function completedTask(id) {
+            var task = document.getElementById(id);
+            task.style.textDecoration = "line-through";
+            completeTask++;
+
+            var completedCount = document.getElementById("taskAchieve");
+            completedCount.innerHTML = `Completed Tasks ${completeTask}/${totalCount}`
+
+        }
+
+        function deleteTask(id) {
+            var divTask = document.getElementById(id)
+            divTask.innerHTML = ""
+        }
+    </script>
+</body>
+
+</html>
