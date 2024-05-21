@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-family: "poppins", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    letter-spacing: 10px;
+}
+
+h1 {
+    font-family: "anton", serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    border-radius: 10px;
+    border: 1px black solid;
+    width: 610px
+}
+
+.image {
+    height: 360px;
+    width: 300px;
+    border-radius: 7px 0 0 7px;
+    background-image: url("https://img.freepik.com/premium-photo/bottle-chanel-perfume-with-pink-flowers-table_901275-15641.jpg?w=740");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 7px;
+}
+
+image:hover {
+    scale: 1;
+    transition: 2s;
+}
+
+.details {
+    background-color: white;
+    height: 360px;
+    width: 300px;
+    margin-right: 10px;
+}
+
+span {
+    font-size: 20px;
+    font-weight: 30px;
+    margin: 10px 10px 10px 10px;
+    color: green
+}
+
+actualprice { 
+    font-size: 10rem;
+} 
+
+button {
+    background-color: green;
+    border-radius: 7px;
+    padding: 5px;
+    height: 30px;
+    width:90%;
+}
+
+.cart:hover {
+    scale: 1;
+    transition: 1s;
+}
