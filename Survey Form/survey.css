@@ -1,0 +1,37 @@
+body {
+    background-color: green;
+}
+
+.innerbox {
+    background-color: white;
+    box-shadow: 2px;
+    padding: 20px;
+}
+
+#button {
+    height: 20px;
+    width: 80% ;
+    background-color: green;
+    color: black;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    padding-left: 50px;
+    padding-right: 50px;
+
+}
+
+#button {
+    background-color: green;
+    font-weight: 20px;
+    width: 100%;
+}
+
+.inputpart {
+    width: 100%;
+}
+
