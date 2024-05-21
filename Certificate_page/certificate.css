@@ -1,0 +1,40 @@
+#logopart{
+    display: flex;
+    justify-content: space-around;
+}
+
+#certificate{
+    border: 5px yellow solid;
+    background-color: rgb(239, 233, 224);
+    height: 500px;
+    padding: 50px;
+    margin: 10px;
+    font-family: Poppins serif;
+}
+img{
+    height: 150px;
+}
+
+h1,h4,h2{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+    border-top: 2px solid black;
+    padding: 10px;
+    
+}
+
+#credential{
+    display: flex;
+    justify-content: space-around;
+}
+
+#midpart{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 200px;
+    width: fit-content;
+}
