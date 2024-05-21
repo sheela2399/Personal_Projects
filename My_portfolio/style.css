@@ -1,0 +1,205 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "poppins", Arial, sans-serif;
+}
+
+body{
+    background-color: rgb(112, 140, 201);
+}
+.container {
+    height: 100vh;
+    width: 100%;
+   
+
+
+    /* Navbar part */
+}
+
+.Navbar {
+    display: flex;
+    justify-content: space-evenly;
+    height: 60px;
+}
+
+.logo {
+    height: 40px;
+    width: 100px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.list1 li {
+    margin: 5px 5px 0px 5px;
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px;
+}
+
+/* Home part */
+.Home {
+    display: flex;
+    justify-content: space-around;
+    height: 360px;
+    width: 100%;
+}
+.Home-content{
+    margin:20px;
+}
+
+.Home-content div {
+    display: inline-block;
+    margin: 20px 20px;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+}
+
+.Home-content button {
+    background-color: rgb(12, 12, 43);
+    border-radius: 10px;
+    color: white;
+    height: 30px;
+    width: 80px;
+    margin-top: 40px;
+}
+
+.Home-content h3{
+    margin-top: 20px;
+}
+
+.Home-content .list {
+    margin-top: 70px;
+}
+
+.list a {
+    padding: 15px;
+    font-size: 30px;
+}
+
+a:hover {
+    border: 2px white solid;
+}
+
+.fa-facebook {
+    color: #0000ff;
+}
+
+.fa-twitter {
+    color: #19a6de;
+}
+
+.fa-square-instagram {
+    color: purple;
+}
+
+.fa-whatsapp {
+    color: #008000;
+}
+
+.fa-linkedin {
+    color: hsl(230, 80%, 48%);
+}
+
+.Home-image {
+    height: 300px;
+    margin-right: 20px;
+    
+}
+
+/* About part */
+
+.About {
+    display: flex;
+    justify-content: space-evenly;
+    height: 360px;
+    width: 100%;
+    margin: 100px;
+}
+
+.pic2 {
+    height: 300px;
+}
+
+.About-content {
+    height: 300px;
+    width: 300px;
+    width: 70%;
+}
+
+.About-content button {
+    background-color: rgb(12, 12, 43);
+    border-radius: 10px;
+    color: white;
+    height: 30px;
+    width: 80px;
+    margin-top: 40px;
+}
+
+.About-content p{
+    margin-top: 20px ;
+}
+
+.About-content h4{
+    margin-top: 20px ;
+}
+
+
+/* Journey part */
+
+.Journey{
+    display: flex;
+    justify-content: space-around;
+}
+
+.Journey-heading{
+    padding: 20px;
+    border: 2px solid black;
+}
+
+h4{
+    padding: 5px;
+    border-bottom: 2px solid black;
+}
+
+/* skills part */
+
+.skills{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+}
+
+.list li{
+    list-style-type: none;
+    margin: 10px;
+}
+
+.Work{
+    background-color: rgb(12, 12, 43);
+    border-radius: 3px;
+    color: white;
+    height: 30px;
+    width: 80px;
+    margin-top: 40px;
+}
+
+.Contact{
+    display: flex;
+    flex-direction: column;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-start ; */
+    background-color: rgb(59, 108, 214);
+
+}
