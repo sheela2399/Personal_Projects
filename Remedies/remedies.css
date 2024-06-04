@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(207, 245, 232);
+}
+
+.Container{
+    height: 330vh;
+    width: 100%;
+}
+
+/* Navbar Part */
+ul li {
+    list-style-type: none;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+img {
+    height: 100px; 
+}
+
+img:hover{
+    border: 2px rgb(146, 112, 70) solid;
+    border-radius: 5px;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+}
+
+li{
+    padding: 10px;
+    margin: 10px;
+}
+
+#menu input{
+    width: 200px;
+    height: 20px;
+    margin: 2px 5px;
+}
+
+li i{
+    height: 20px;
+    width: 20px;
+    border: black 2px;
+    border-radius: 2px;
+    /* background-color: #008000; */
+    margin-left: 0px;
+}
+
+
+/* About */
+
+.About{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.info{
+    height: 420px;
+    width: 50%;
+}
+
+.img{
+background-image: url(https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/04/Spoons_Spices_1296x728-header.jpg?h=1528);
+background-size: cover;
+height: 300px;
+width: 40%;
+margin-top: 70px;
+}
+
+
+/* Home Page */
+.Home{
+ background-color: #a3dea3;
+ height:600px
+}
+
+
+.problem li{
+    height: 70px;
+    width: 80px;
+    margin: 5px;
+    border: 2px rgb(24, 34, 24) solid;
+    /* background-color: rgb(136, 252, 234); */
+}
+
+h2{
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.box {
+    height: 200px;
+    width: 30%;
+    border: 2px solid rgba(0, 0, 0, 0.023); 
+    padding: 20px 0px 15px;
+}
+
+.box1 {
+    background-image: url(https://media6.ppl-media.com/mediafiles/blogs/shutterstock_2053913117_b9fa9fbc8c.jpg);
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+.box2 {
+    background-image: url(https://www.careinsurance.com/upload_master/media/posts/August2023/headache-signs.webp);
+    background-size: cover;
+    background-repeat: no-repeat; 
+
+}
+.box3 {
+    background-image: url(https://cdn.punchng.com/wp-content/uploads/2021/08/01023301/EYE.jpg);
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+.box4 {
+    background-image: url(https://media.self.com/photos/57d8875ef71ce8751f6b4817/master/pass/painful-pimple-remedy-feat.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+.box5 {
+    background-image: url(https://resize.indiatvnews.com/en/resize/newbucket/400_-/2023/11/coughing-1699082698.jpg);
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+.box6 {
+    background-image: url(https://sa1s3optim.patientpop.com/assets/images/provider/photos/1975903.png);
+    background-size:cover;
+    background-repeat: no-repeat; 
+}
+
+.images{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+/* Achievements */
+.achievements {
+    height: 200px;
+    width: 100%;
+    background-color: rgb(95, 143, 121);
+}
+
+.achievements ul li {
+    padding: 50px 50px;
+    list-style-type: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.achievements ul {
+    margin: 30px 60px;
+}
+
+li h3 {
+    font-size: 30px;
+    color: white;
+}
+
+li h4 {
+    font-size: 18px;
+    color: white;
+}
+
+/* contact */
+.contact{
+    height: 420px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(136, 227, 198);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+button{
+    background-color: rgb(77, 220, 141);
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+input, textarea{
+    height: 50px;
+    width: 300px;
+    margin: 10px;
+    /* border-bottom: black 2px; */
+    border-radius: 2px;
+    margin: 10px 10px;
+}
+
+h4{
+    text-align: center;
+}
+
+.list a{
+    margin: 20px;
+}
+
+.list{
+    display: flex;
+    flex-direction: row;
+     justify-content: flex-end;  
+}
+
+a:hover {
+    border: 2px white solid;
+}
+
+.fa-facebook {
+    color: #0000ff;
+
+}
+
+.fa-twitter {
+    color: #19a6de;
+}
+
+.fa-square-instagram {
+    color: purple;
+}
+
+.fa-whatsapp {
+    color: #008000;
+}
+
+.fa-linkedin {
+    color: hsl(230, 80%, 48%);
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        .Container {
+            background-color: aquamarine;
+            height: 300px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 10px rgb(110, 157, 222), 10px rgb(127, 127, 236);
+            border: 5px solid rgb(123, 224, 215);
+            border-radius: 10px;
+        }
+
+        button {
+            height: 25px;
+            width: 60%;
+            background-color: rgb(11, 11, 49);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Container">
+        <h2>Digital Clock</h2>
+        <p id="time"></p>
+        <button onclick="getTime()">Click Here</button>
+    </div>
+
+    <script>
+        function getTime() {
+            let getTime = document.getElementById("time")
+            getTime.innerHTML = Date()
+        }
+    </script>
+</body>
+
+</html>
