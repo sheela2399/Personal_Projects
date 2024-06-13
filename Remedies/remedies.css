@@ -4,101 +4,121 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     background-color: rgb(207, 245, 232);
 }
 
-.Container{
-    height: 330vh;
+/* login page */
+.container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+}
+
+#login {
+    height: 400px;
+    width: 500px;
+    background-color: aquamarine;
+    border-radius: 5px;
+    box-shadow: 5px 10px #585555;
+}
+
+#login h1,
+button {
+    color: #585555;
+    margin: 10px;
+}
+
+button a {
+    text-decoration: none;
+    color: black;
+}
+
+button a:hover {
+    border: none;
+}
+
+/* web page */
+.Container {
+    height: 300vh;
     width: 100%;
 }
 
 /* Navbar Part */
-ul li {
-    list-style-type: none;
-}
-
-ul {
-    display: flex;
-    justify-content: space-around;
-}
-
-img {
-    height: 100px; 
-}
-
-img:hover{
-    border: 2px rgb(146, 112, 70) solid;
-    border-radius: 5px;
-}
-
 .navbar {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     background-color: white;
 }
 
-li{
-    padding: 10px;
-    margin: 10px;
+img {
+    height: 100px;
 }
 
-#menu input{
+img:hover {
+    border: 2px rgb(146, 112, 70) solid;
+    border-radius: 5px;
+}
+
+a {
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+.menu input,
+a {
     width: 200px;
     height: 20px;
-    margin: 2px 5px;
+    margin: 30px 10px 10px 10px;
 }
-
-li i{
-    height: 20px;
-    width: 20px;
-    border: black 2px;
-    border-radius: 2px;
-    /* background-color: #008000; */
-    margin-left: 0px;
-}
-
 
 /* About */
 
-.About{
+#About {
     display: flex;
     justify-content: space-around;
     margin-top: 50px;
     text-align: center;
 }
 
-.info{
+.info {
     height: 420px;
     width: 50%;
 }
 
-.img{
-background-image: url(https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/04/Spoons_Spices_1296x728-header.jpg?h=1528);
-background-size: cover;
-height: 300px;
-width: 40%;
-margin-top: 70px;
+.img {
+    background-image: url(https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/04/Spoons_Spices_1296x728-header.jpg?h=1528);
+    background-size: cover;
+    height: 300px;
+    width: 40%;
+    margin-top: 70px;
 }
 
 
 /* Home Page */
-.Home{
- background-color: #a3dea3;
- height:600px
+#Home {
+    background-color: #a3dea3;
+    height: 600px
 }
 
+.problem {
+    display: flex;
+    justify-content: space-around;
+}
 
-.problem li{
+.problem li {
     height: 70px;
     width: 80px;
     margin: 5px;
     border: 2px rgb(24, 34, 24) solid;
-    /* background-color: rgb(136, 252, 234); */
+    list-style: none;
+    padding: 5px;
 }
 
-h2{
+h2 {
     margin-bottom: 10px;
     text-align: center;
 }
@@ -106,65 +126,129 @@ h2{
 .box {
     height: 200px;
     width: 30%;
-    border: 2px solid rgba(0, 0, 0, 0.023); 
+    border: 2px solid rgba(0, 0, 0, 0.023);
     padding: 20px 0px 15px;
 }
 
 .box1 {
     background-image: url(https://media6.ppl-media.com/mediafiles/blogs/shutterstock_2053913117_b9fa9fbc8c.jpg);
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 }
+
 .box2 {
     background-image: url(https://www.careinsurance.com/upload_master/media/posts/August2023/headache-signs.webp);
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 
 }
+
 .box3 {
     background-image: url(https://cdn.punchng.com/wp-content/uploads/2021/08/01023301/EYE.jpg);
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 }
+
 .box4 {
     background-image: url(https://media.self.com/photos/57d8875ef71ce8751f6b4817/master/pass/painful-pimple-remedy-feat.jpeg);
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 }
 
 .box5 {
     background-image: url(https://resize.indiatvnews.com/en/resize/newbucket/400_-/2023/11/coughing-1699082698.jpg);
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 }
 
 .box6 {
     background-image: url(https://sa1s3optim.patientpop.com/assets/images/provider/photos/1975903.png);
-    background-size:cover;
-    background-repeat: no-repeat; 
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.images{
+.images {
     display: flex;
     justify-content: space-around;
     margin: 20px;
 }
 
+/* buy product parts */
+#buyproduct {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-top: 2px rgb(167, 248, 167) solid;
+}
+
+#buyproduct h1{
+    margin: 20px 0px;
+}
+
+#products{
+    height:300px;
+    width:100%px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#products div{
+    text-align: center;
+    background-color: aliceblue;
+    margin: 5px;
+    height: 200px;
+    border: #008000 2px solid;
+    box-shadow: 5px 5px grey;
+    }
+
+#product1{
+    background-image: url(https://tse4.mm.bing.net/th?id=OIP.9nT5YlO0qXRkazMhhCGt6QHaHa&pid=Api&P=0&h=180);
+}
+
+#product3{
+    background-image: url(https://tse3.mm.bing.net/th?id=OIP.LD-SOQPatnGkOdl180hqHQHaHb&pid=Api&P=0&h=180);
+}
+
+#product2{
+    background-image: url(https://tse1.mm.bing.net/th?id=OIP.RRGQlhkWqT7qDSTDU0ZUvAHaD0&pid=Api&P=0&h=180);
+}
+
+#product4{
+    background-image: url(https://tse4.mm.bing.net/th?id=OIP.sv5tFCpAiMkNp0a3U28b2AHaEJ&pid=Api&P=0&h=180);
+}
+
+#product5{
+    background-image: url(https://tse3.mm.bing.net/th?id=OIP.e0qcurh6kfI8j6GKQMfRkwHaHa&pid=Api&P=0&h=180);   
+}
+
+.buy{
+    margin: 20px;
+    padding: 20px;
+    height: 500px;
+    width: 200px;
+    background-repeat: no-repeat;
+}
+
+.buy p{
+    font-weight: bold;
+}
+
 /* Achievements */
-.achievements {
+#Achievements {
     height: 200px;
     width: 100%;
     background-color: rgb(95, 143, 121);
 }
 
-.achievements ul li {
+#Achievements ul li {
     padding: 50px 50px;
     list-style-type: none;
     display: inline-block;
     text-align: center;
 }
 
-.achievements ul {
+#Achievements ul {
     margin: 30px 60px;
 }
 
@@ -179,7 +263,7 @@ li h4 {
 }
 
 /* contact */
-.contact{
+#contact {
     height: 420px;
     width: 100%;
     display: flex;
@@ -187,7 +271,7 @@ li h4 {
     background-color: rgb(136, 227, 198);
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -195,39 +279,37 @@ form{
 }
 
 
-button{
+button {
     background-color: rgb(77, 220, 141);
     height: 30px;
-    width: 100px;
     border-radius: 10px;
+    font-size: 20px;
+    width: 240px;
 }
 
-input, textarea{
+input,
+textarea {
     height: 50px;
     width: 300px;
     margin: 10px;
-    /* border-bottom: black 2px; */
-    border-radius: 2px;
-    margin: 10px 10px;
+    border-radius: 7px;
+    padding: 5px;
+    font-size: 17px;
 }
 
-h4{
+h4 {
     text-align: center;
 }
 
-.list a{
-    margin: 20px;
-}
-
-.list{
+/* .list {
     display: flex;
     flex-direction: row;
-     justify-content: flex-end;  
-}
-
-a:hover {
-    border: 2px white solid;
-}
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    width: 250px;
+    margin-left: 200x;
+} */
 
 .fa-facebook {
     color: #0000ff;
@@ -249,3 +331,60 @@ a:hover {
 .fa-linkedin {
     color: hsl(230, 80%, 48%);
 }
+
+/* Service Page */
+.heading {
+    border-bottom: black 2px solid;
+    margin-top: 20px;
+}
+
+.subnav1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 15%;
+    padding: 3px;
+    border-right: 2px rgb(167, 248, 167) solid
+}
+
+.subnav1 a {
+    height: auto;
+    width: auto;
+}
+
+.subnav1 a:hover {
+    background-color: aquamarine;
+}
+
+.Container2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#show-remedy {
+    background-color: white;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+}
+
+.info {
+    height: 100%;
+    text-align: center;
+    padding: 50px;
+}
+
+.info img {
+    height:300px;
+    margin: 10px;
+    box-shadow: 5px 10px #585555;
+}
+
+.info li {
+ list-style-type: none ;
+}
+

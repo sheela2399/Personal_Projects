@@ -14,21 +14,20 @@
 <body>
     <div class="Container">
         <!-- Navbar part -->
+
         <div class="navbar">
             <div><img
                     src="https://cdn.dcpweb.co.uk/userfiles/gallery/file/portfolio_logo_best_solutions_remedies_preview_1.webp"
                     alt="logo2">
             </div>
             <div class="menu">
-                <ul id="menu">
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact Us</li>
-                    <li><input type="search" placeholder="search here">
-                     </li>
-                     <li><i class="fa-solid fa-magnifying-glass"></i></li>
-                </ul>
-                
+                <a href="#Home">Home</a>
+                <a href="#About">About</a>
+                <a href="service.html">Services</a>
+                <a href="#contact">Contact</a>
+                <input type="text" placeholder="Search Here" id="search-bar" onsubmit="showDetails(value)">
+                <a href="index.html">Login</a>
+                <a href="#buyproduct">Buy Products</a>
             </div>
             <div><img
                     src="https://thumbs.dreamstime.com/b/healthy-logo-nature-logo-natural-remedies-logo-health-medicine-logo-clinic-logo-mortar-pestle-pharmacy-nature-herbal-health-121479291.jpg"
@@ -37,7 +36,7 @@
         </div>
 
         <!-- About us -->
-        <div class="About">
+        <div id="About">
             <div class="info">
                 <h2>About us</h2><br>
                 <h3>Remedies.com</h3><br>
@@ -61,7 +60,7 @@
             <div class="img"></div>
         </div>
         <!-- Home page -->
-        <div class="Home">
+        <div id="Home">
             <br>
             <h2>Remedies for......</h2>
             <ul class="problem">
@@ -95,8 +94,47 @@
                 </div>
             </div>
         </div>
+        <!-- Buy products -->
+        <div id="buyproduct">
+            <h1>Our Products</h1>
+            <div id="products">
+    
+                <div>
+                    <h3>Hair Oil</h3>
+                    <p>$250</p>
+                    <div class="buy" id="product1"></div>
+                </div>
+    
+                <div>
+                    <h3>Tan removal combo
+                    </h3>
+                    <p>$300</p>
+                    <div class="buy" id="product2"></div>
+                </div>
+    
+                <div>
+                    <h3> Weight Gain chyawanprash</h3>
+                    <p>$140</p>
+                    <div class="buy" id="product3"></div>
+                </div>
+    
+            
+                <div>
+                    <h3> Skin care combo</h3>
+                    <p>$200</p>
+                    <div class="buy" id="product4"></div>
+                </div>
+    
+                <div>
+                    <h3> Skin care combo</h3>
+                    <p>$260</p>
+                    <div class="buy" id="product5"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- Achievments -->
-        <div class="achievements">
+        <div id="Achievements">
             <ul>
                 <li>
                     <h3>2536</h3>
@@ -118,7 +156,7 @@
         </div>
 
         <!-- contact us -->
-        <div class="contact">
+        <div id="contact">
             <div class="queries">
                 <form>
                     <input type="text" placeholder="Your Name" autocomplete="off">
@@ -130,7 +168,7 @@
                 <br>
                 <h4>You can also Contact Us on <br>
                     Follow Our Social profiles</h4>
-                <ul class="list">
+                <div class="menu">
                     <a href="https://www.facebook.com/shaily.mishra.568?mibextid=ZbWKwL"><i
                             class="fa-brands fa-facebook"></i></a>
                     <a href="https://twitter.com/sheelamishra99"><i class="fa-brands fa-twitter"></i></a>
@@ -139,13 +177,10 @@
                     <a href="https://whatsapp.com/dl/code=s8hpkaN7hr"><i class="fa-brands fa-whatsapp"></i></a>
                     <a href="https://www.linkedin.com/in/sheela-mishra-265988291"><i
                             class="fa-brands fa-linkedin"></i></a>
-                </ul>
+                </div>
             </div>
-
-
-
-
         </div>
+        <script src="index.js"></script>
 </body>
 
 </html>
