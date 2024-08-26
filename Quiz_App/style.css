@@ -226,6 +226,14 @@ svg {
     gap: 0;
 }
 
+.invalid-msg{
+    color:red
+}
+
+.invalid-msg i{
+    color: green;
+}
+
 /* Quiz- start page */
 .quiz-start-nav {
     width: 1, 440px;
