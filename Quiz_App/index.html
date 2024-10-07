@@ -38,7 +38,7 @@
                 </div>
                 <div class="first-row password">
                     <label for="password" class="input-label">Password<span class="text-red">*</span></label><br>
-                    <input type="password" id="password" name="password" placeholder="Password">
+                   <span class="forshowpass"><input type="password" id="password" name="password" placeholder="Password" ><i class="fa-regular fa-eye-slash" onclick="passwordHideShow()" id="Show-password"></i></span>
                     <br><span id="invalid-msg-password" class="invalid-msg"></span>
                 </div>
                 <button class="btn btn-primary" id="submit-button" onclick="validateSignup(event)"> Signup </button>
@@ -49,9 +49,11 @@
                     <img src="assests/devicon_google.png" alt="google-logo"> <a href="">Sign up with Google</a>
                 </div>
 
-                <div class="terms dis-row-center">
-                    <input type="checkbox">
-                    <option>I accept <a href=""><span class="text-blue">Terms & conditions</span></a></option>
+                <div class="terms">
+                    <span>
+                      <input type="checkbox" required id="terms">
+                    <label name ="terms">I accept <a href="#" class="text-blue">Terms & conditions</a></label>
+                </span>
                 </div>
                 <p class=" link-account grey-text dis-row-center">Have an account? <a class="text-blue"
                         href="login.html">Log in ?</a></p>
