@@ -118,7 +118,7 @@ let userLogedIn = (localStorage.getItem('isLoggedin'));
 
 // getting name and email when user logged in and setting as testUser
 let testUser = (JSON.parse(userLogedIn));
-console.log(testUser);
+// console.log(testUser);
 
 // quiz page code to get Name at top starts and log out
 
@@ -153,7 +153,7 @@ function logout() {
 // quiz page code ends
 
 //questions display starts
-let quize = JSON.parse(localStorage.getItem("quizQuestions")) || [];
+let quiz = JSON.parse(localStorage.getItem("quizQuestions")) || [];
 
 const quizQuestions = [
     {
@@ -318,6 +318,9 @@ let quizRandomPosition = 0;
 let quizRandomQuestion = [];
 let quizUsedIndexes = new Set();
 let selectedAnswers = Array(totalQuestions).fill(null); // Store selected answers for all questions
+// userScores.push(selectedAnswers)
+let score = 0;
+
 
 const questionHeading = document.getElementById("questionHead");
 const questionNumberElement = document.getElementById("questionNum");
@@ -327,8 +330,6 @@ const nextoptionElement = document.getElementById("nextquestion");
 const previousoptionElement = document.getElementById("previousquestion");
 const progressBarElement = document.getElementById("progress");
 const displayScore = document.getElementById("displayScore")
-let score = 0;
-const selectedOption = document.querySelector('input[name="options"]:checked');
 
 //  function to get a random index thats not repeated
 function getRandomIndex() {
@@ -341,10 +342,10 @@ function getRandomIndex() {
 }
 
 // Populate quizRandomQuestion with unique questions
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 3; i++) {
     const randomIndex = getRandomIndex();
     quizRandomQuestion.push(quizQuestions[randomIndex]);
-    console.log(quizQuestions[randomIndex])
+    // console.log(quizQuestions[randomIndex])
 }
 
 // to display quizquestion first time default
@@ -364,7 +365,7 @@ updateProgressBar();
 
 // Function to display the next questions and options
 function displayQuestion() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 3; i++) {
         if (questionElement && optionElement && quizRandomPosition > 0) {
             questionHeading.innerHTML = `<h1>Question ${questionNumber + 1} of ${quizRandomQuestion.length}`
             questionNumberElement.innerHTML = `${quizRandomPosition + 1}.`;
@@ -381,39 +382,30 @@ function displayQuestion() {
     }
 }
 
+// condition for next and previous button display
+if (quizRandomPosition === 0) {
+    previousoptionElement.style.display = 'none';
+}
 
-// function previousQuestion() {
-//     questionNumber--;
-//     if(quizRandomPosition  >= 0){
-//         quizRandomPosition --;
-//         // questionHeading.innerHTML = `<h1>Question ${questionNumber - 1} of ${quizRandomQuestion.length}`
-//         displayQuestion();    
-//     }
-//     else{
-//         return;
-//     }
-//     }
+if (quizRandomPosition === totalQuestions - 1) {
+    nextoptionElement.style.display = 'none';
+}
+else {
+    nextoptionElement.style.display = 'inline';
+    previousoptionElement.style.display = 'inline';
+}
 
-// function saveAnswer() {
-//     // Get the selected radio button
-//     if (selectedOption) {
-//         selectedAnswers[questionNumber - 1] = selectedOption.value;
-//     }
-// }
+// condition for last 2 question
+if (questionNumber == 8) {
+    quizRandomPosition == 9;
+    questionHeading.innerHTML = `<h1>Last 2 Questions left</h1>`
+}
 
-// function loadAnswer() {
-//     // Clear the previously selected radio button
-//     const options = document.querySelectorAll('input[name="options"]');
-//     options.forEach(option => {
-//         option.checked = false;
-//     });
-
-//     // / Load the saved answer for the current question, if any
-//     const savedAnswer = selectedAnswers[questionNumber - 1];
-//     if (savedAnswer) {
-//         document.querySelector(`input[name="options"][value="${savedAnswer}"]`).checked = true;
-//     }
-// }
+if (questionNumber == 10) {
+    quizRandomPosition == 9;
+    nextoptionElement.innerHTML = "submit and continue"
+    questionHeading.innerHTML = `<h1>Hey this is last Question</h1>`
+}
 
 // Retrieve score for leaderboard or further usage
 function getUserScores() {
@@ -431,23 +423,6 @@ function updateProgressBar() {
 }
 
 // Function to get Score
-function updateScore(selectedAnswer) {
-    // console.log(quizRandomQuestion)
-    // console.log(selectedAnswer)
-    // console.log(selectedAnswer.value)
-    // console.log(quizRandomQuestion[quizRandomPosition].rightAns)
-    let choosedRightAns = (selectedAnswer.value == quizRandomQuestion[quizRandomPosition].rightAns)
-    console.log({selectedAnswer, quizRandomQuestion, quizRandomPosition})
-    // console.log(choosedRightAns)
-
-    if (choosedRightAns) {
-        score +=2;
-    }
-
-    console.log({choosedRightAns, score})
-    // console.log(`your score is ${score}`);   
-}
-
 
 // function to show top 6 leaderboard
 function showLeaderboard() {
@@ -476,7 +451,7 @@ function showLeaderboard() {
     let top6 = sortedUsers.slice(0, 6);
     console.log("Leaderboard (Top 6):");
     console.log(top6);
-//    console.log(top1Name).value;
+    //    console.log(top1Name).value;
 
     top6.forEach((userScores, index) => {
         // console.log(top1Name);
@@ -541,82 +516,140 @@ function rankDisplay() {
     // debugger
 }
 
-
 function nextQuestion() {
-    // saveAnswer();
-    
-    let selectedOption = document.querySelector('input[name="options"]:checked')
-    // let selectedOption = document.querySelector('input[name="options"]:checked').value
+    const selectedOption = document.querySelector('input[name="options"]').checked;
 
-    // localStorage.setItem("selectedOption", selectedOption)
+    console.log(selectedOption)
+
+
     if (!selectedOption) {
+        // console.log(selectedOption)
         alert("Select a option");
-        // return;
+        return;
     }
 
-    if (questionNumber == 8) {
-        quizRandomPosition == 9;
-        questionHeading.innerHTML = `<h1>Last 2 Questions left</h1>`
+    else if (quizRandomPosition < totalQuestions - 1) {
+        quizRandomPosition++;
+        questionNumber++;
+        displayQuestion();
     }
 
-    if (questionNumber == 10) {
-        quizRandomPosition == 9;
-        nextoptionElement.innerHTML = "submit and continue"
-        questionHeading.innerHTML = `<h1>Hey this is last Question</h1>`
-    }
-
-   if (quizRandomPosition < quizRandomQuestion.length) {
-        updateScore(selectedOption);
+    else if (quizRandomPosition < quizRandomQuestion.length) {
+        updateScore();
         displayQuestion();
         questionNumber++;
         quizRandomPosition++;
     }
-
-    if (quizRandomPosition == quizRandomQuestion.length) {
-
-        //  save score here in localstorage in format
-
-        let userLogedIn = (localStorage.getItem('isLoggedin'));
-        console.log(userLogedIn);
-
-        // getting name and email when user logged in
-        let testUser = (JSON.parse(userLogedIn));
-
-        // Prepare user score data
-        const userScore = {
-            testUserName: testUser.fullName,
-            testUserEmail: testUser.email,
-            score: score,
-            selectedQuizQuestion: quizRandomQuestion,
-            selectedQuizOption: [{ selectedOption, selectedOption }],
-        };
-
-        localStorage.setItem("SelectedOption" , selectedOption) || []
-
-        // Retrieve the stored user score data, or initialize it
-        let storedScores = JSON.parse(localStorage.getItem('userScores')) || [];
-
-        // Add the current user's score to the list
-        storedScores.push(userScore);
-
-        // Save the updated score list back to localStorage
-        localStorage.setItem('userScores', JSON.stringify(storedScores));
-
-        // Redirect to leaderboard or display the result page
-        window.location.href = "leaderboard.html";
-        console.log("Quiz ended. User's score saved.");
-    }
 }
 
-// Function to handle the previous button click
+function updateScore() {
+    console.log("update ")
+    const checkOption = document.querySelector('input[name="options"]:checked')
+    console.log(checkOption.value)
+    // console.log(quizRandomQuestion)
+    // console.log(selectedAnswer)
+    // console.log(selectedAnswer.value)
+    console.log(quizRandomQuestion[quizRandomPosition].rightAns)
+    let choosedRightAns = (checkOption.value == quizRandomQuestion[quizRandomPosition].rightAns)
+    console.log({ checkOption, quizRandomQuestion, quizRandomPosition })
+    // console.log(choosedRightAns)
+
+    if (choosedRightAns) {
+        score += 2;
+    }
+
+    console.log({ choosedRightAns, score })
+    // console.log(`your score is ${score}`);   
+}
+
+
 function previousQuestion() {
-    quizRandomPosition --
-
-    if (quizRandomPosition < quizRandomQuestion.length && quizRandomPosition > 0 && questionNumber > 0) {
-        displayQuestion();
+    if (quizRandomPosition > 0) {
+        quizRandomPosition--;
         questionNumber--;
+        displayQuestion();
     }
 }
-console.log(selectedOption);
-console.log(selectedAnswers);
+
+function choosedAnswer(quizRandomPosition) {
+    quizRandomQuestion[quizRandomPosition]["choosedAnswer"] = quizRandomQuestion[quizRandomPosition].options[i]
+}
+
+// function nextQuestion(){
+//     let selectedOption = document.querySelectorAll("[name='option']");
+//     console.log(selectedOption)
+//     if (quizRandomPosition == 9) {
+//         submit();
+//         return;
+//     }
+
+//     if(!optionSelected){
+//         alert("select a option")
+//     }
+
+//     let optionSelected = false
+//     selectedOption.forEach((checkedOption) => {
+//         if (checkedOption.checked) {
+//             if (quizRandomPosition < 9) {
+//                 quizRandomPosition++;
+//                 // countNumber++;
+//                 displayQuestion();
+//             }
+//             optionSelected = true;
+//         }
+//     });
+
+//     // if (!selectedOption) {
+//     //     alert("select a option")
+//     // }
+
+
+// }
+
+function submit() {
+    console.log("submit")
+    for (let i = 0; i < quizRandomQuestion.length; i++) {
+        // if (choosedQuestion[i].choosedAnswer == choosedQuestion[i].answer) {
+        //     score += 10;
+        // }
+        if (quizRandomPosition[i].choosedAnswer == quizRandomPosition[i].answer) {
+            score += 2;
+        }
+    }
+}
+
+if (quizRandomPosition == quizRandomQuestion.length) {
+
+    //  save score here in localstorage in format
+    let userLogedIn = (localStorage.getItem('isLoggedin'));
+    console.log(userLogedIn);
+
+    // getting name and email when user logged in
+    let testUser = (JSON.parse(userLogedIn));
+
+    // Prepare user score data
+    const userScore = {
+        testUserName: testUser.fullName,
+        testUserEmail: testUser.email,
+        score: score,
+        selectedQuiz: [quizRandomQuestion, choosedAnswer]
+    };
+
+    // localStorage.setItem("SelectedOption", selectedOption) || []
+
+    // Retrieve the stored user score data, or initialize it
+    let storedScores = JSON.parse(localStorage.getItem('userScores')) || [];
+
+    // Add the current user's score to the list
+    storedScores.push(userScore);
+
+    // Save the updated score list back to localStorage
+    localStorage.setItem('userScores', JSON.stringify(storedScores));
+
+    // Redirect to leaderboard or display the result page
+    window.location.href = "leaderboard.html";
+    console.log("Quiz ended. User's score saved.");
+}
+
+
 
