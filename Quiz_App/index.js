@@ -152,10 +152,9 @@ function logout() {
 
 // quiz page code ends
 
-//questions display starts
-let quiz = JSON.parse(localStorage.getItem("quizQuestions")) || [];
+//questions display starts..
 
-const quizQuestions = [
+let quizQuestions = [
     {
         question: "Which animal is known as the 'Ship of the Desert ?",
         options: [
@@ -308,30 +307,28 @@ const quizQuestions = [
     }
 ];
 
-let savedInLocal = JSON.stringify(quizQuestions);
-localStorage.setItem("quizQuestions", savedInLocal);
-const fetchQuize = JSON.parse(localStorage.getItem("quizQuestions"));
+localStorage.setItem("quizQuestions", quizQuestions);
+// const fetchQuize = JSON.parse(localStorage.getItem("quizQuestions"));
 
-let questionNumber = 1;
-let totalQuestions = 10;
-let quizRandomPosition = 0;
-let quizRandomQuestion = [];
-let quizUsedIndexes = new Set();
-let selectedAnswers = Array(totalQuestions).fill(null); // Store selected answers for all questions
-// userScores.push(selectedAnswers)
 let score = 0;
-
-
+let questionNumber = 1;
+let quizUsedIndexes = new Set();
+let randomQuestion = [];
+let totalQuestions = 10;
+let index = 0;
+const progressBarElement = document.getElementById("progress");
 const questionHeading = document.getElementById("questionHead");
 const questionNumberElement = document.getElementById("questionNum");
 const questionElement = document.getElementById("question");
 const optionElement = document.getElementById("options");
-const nextoptionElement = document.getElementById("nextquestion");
-const previousoptionElement = document.getElementById("previousquestion");
-const progressBarElement = document.getElementById("progress");
-const displayScore = document.getElementById("displayScore")
+const nextButton = document.getElementById("nextquestion");
+const previousButton = document.getElementById("previousquestion");
+const displayScore = document.getElementById("displayScore");
 
-//  function to get a random index thats not repeated
+// Fetch the quiz questions from localStorage
+const fetchQuize = (localStorage.getItem("quizQuestions"));
+
+//  function to get a random index that's not repeated
 function getRandomIndex() {
     let randomIndex;
     do {
@@ -341,306 +338,123 @@ function getRandomIndex() {
     return randomIndex;
 }
 
-// Populate quizRandomQuestion with unique questions
-for (let i = 0; i < 3; i++) {
+// Populate randomQuestion with unique questions
+for (let i = 0; i < totalQuestions; i++) {
     const randomIndex = getRandomIndex();
-    quizRandomQuestion.push(quizQuestions[randomIndex]);
-    // console.log(quizQuestions[randomIndex])
+    randomQuestion.push(quizQuestions[randomIndex]);
 }
 
-// to display quizquestion first time default
-if (questionElement && optionElement) {
-    questionHeading.innerHTML = `<h1>Question ${questionNumber} of 10`
-    questionNumberElement.innerHTML = `${quizRandomPosition + 1}.`;
-    questionElement.innerHTML = quizRandomQuestion[quizRandomPosition].question;
-    optionElement.innerHTML = `<div class= "optionText">1. <input type="radio" name="options" id="option1" value="${quizRandomQuestion[quizRandomPosition].options[0].value}"/><label for="option1">${quizRandomQuestion[quizRandomPosition].options[0].value}</label></div>`;
-    optionElement.innerHTML += `<div class= "optionText">2. <input type="radio" name="options" id="option2" value="${quizRandomQuestion[quizRandomPosition].options[1].value}"/><label for="option2">${quizRandomQuestion[quizRandomPosition].options[1].value}</label> </div>`;
-    optionElement.innerHTML += `<div class= "optionText">3. <input type="radio" name="options" id="option3" value="${quizRandomQuestion[quizRandomPosition].options[2].value}"/><label for="option3">${quizRandomQuestion[quizRandomPosition].options[2].value}</label></div>`;
-    optionElement.innerHTML += `<div class= "optionText">4. <input type="radio" name="options" id="option4"  value="${quizRandomQuestion[quizRandomPosition].options[3].value}"/><label for="option4">${quizRandomQuestion[quizRandomPosition].options[3].value}</label></div>`;
-    nextoptionElement.innerHTML = `Next <i class="fa-solid fa-arrow-right"></i>`
-    previousoptionElement.style.display = "hide"
-};
-updateProgressBar();
-
-
-// Function to display the next questions and options
+// Function to display a question
 function displayQuestion() {
-    for (let i = 0; i < 3; i++) {
-        if (questionElement && optionElement && quizRandomPosition > 0) {
-            questionHeading.innerHTML = `<h1>Question ${questionNumber + 1} of ${quizRandomQuestion.length}`
-            questionNumberElement.innerHTML = `${quizRandomPosition + 1}.`;
-            questionElement.innerHTML = quizRandomQuestion[quizRandomPosition].question;
-            optionElement.innerHTML = `<div class= "optionText">1. <input type="radio" name="options" id="option1" value="${quizRandomQuestion[quizRandomPosition].options[0].value}"/><label for="option1">${quizRandomQuestion[quizRandomPosition].options[0].value}</label></div>`;
-            optionElement.innerHTML += `<div class= "optionText">2. <input type="radio" name="options" id="option2" value="${quizRandomQuestion[quizRandomPosition].options[1].value}"/><label for="option2">${quizRandomQuestion[quizRandomPosition].options[1].value}</label> </div>`;
-            optionElement.innerHTML += `<div class= "optionText">3. <input type="radio" name="options" id="option3" value="${quizRandomQuestion[quizRandomPosition].options[2].value}"/><label for="option3">${quizRandomQuestion[quizRandomPosition].options[2].value}</label></div>`;
-            optionElement.innerHTML += `<div class= "optionText">4. <input type="radio" name="options" id="option4"  value="${quizRandomQuestion[quizRandomPosition].options[3].value}"/><label for="option4">${quizRandomQuestion[quizRandomPosition].options[3].value}</label></div>`;
-            nextoptionElement.innerHTML = `Next <i class="fa-solid fa-arrow-right"></i>`
-            previousoptionElement.style.display = "inline"
-            previousoptionElement.innerHTML = `Previous <i class="fa-solid fa-arrow-left"></i>`
-        };
-        updateProgressBar();
+    if (questionElement && optionElement) {
+        let currentQuestion = randomQuestion[index];
+
+        // Update question heading and question content
+        questionHeading.innerHTML = `<h1>Question ${questionNumber} of ${totalQuestions}</h1>`;
+        questionNumberElement.innerHTML = `${index + 1}.`;
+        questionElement.innerHTML = currentQuestion.question;
+
+        // Display the options dynamically
+        optionElement.innerHTML = currentQuestion.options.map((option, index) =>
+            `<div class="optionText">
+                ${index + 1}. 
+                <input type="radio" name="options" id="option${index}" value="${option.value}">
+                <label for="option${index}">${option.value}</label>
+            </div>`).join("");
+
+        // Handle Next/Previous buttons display logic
+        // previousButton.style.display = index > 0 ? 'inline' : 'none';
+        // nextButton.innerHTML = index === totalQuestions - 1
+        //     ? "Submit and Continue"
+        //     : "Next <i class='fa-solid fa-arrow-right'></i>";
+
+        if(index == 0){
+            previousButton.style.display = "none"
+        }
+
+        if (index > 0) {
+            previousButton.style.display = "inline"
+            nextButton.innerHTML = "Next <i class='fa-solid fa-arrow-right'></i>"
+        }
+
+        if (index == 8) {
+            questionHeading.innerHTML = "<h1>Last 2 Questions Left..</h1"
+        }
+
+        if (index == 9) {
+            questionHeading.innerHTML = "<h1>Hey this is the Last Question </h1>"
+            nextButton.innerHTML = "Submit and Continue"
+        }
     }
+
+    updateProgressBar();
 }
 
-// condition for next and previous button display
-if (quizRandomPosition === 0) {
-    previousoptionElement.style.display = 'none';
-}
-
-if (quizRandomPosition === totalQuestions - 1) {
-    nextoptionElement.style.display = 'none';
-}
-else {
-    nextoptionElement.style.display = 'inline';
-    previousoptionElement.style.display = 'inline';
-}
-
-// condition for last 2 question
-if (questionNumber == 8) {
-    quizRandomPosition == 9;
-    questionHeading.innerHTML = `<h1>Last 2 Questions left</h1>`
-}
-
-if (questionNumber == 10) {
-    quizRandomPosition == 9;
-    nextoptionElement.innerHTML = "submit and continue"
-    questionHeading.innerHTML = `<h1>Hey this is last Question</h1>`
-}
-
-// Retrieve score for leaderboard or further usage
-function getUserScores() {
-    const storedScores = JSON.parse(localStorage.getItem('userScores')) || [];
-    console.log(storedScores);
-    return storedScores;
-}
-
-// Function to show the progress
+// Function to update the progress bar
 function updateProgressBar() {
-    const progress = (quizRandomPosition / totalQuestions) * 100;
+    const progress = (index / totalQuestions) * 100;
     if (progressBarElement) {
         progressBarElement.style.width = `${progress}%`;
     }
 }
 
-// Function to get Score
-
-// function to show top 6 leaderboard
-function showLeaderboard() {
-
-    // Sort the users by score in descending order 
-    let userScores = JSON.parse(localStorage.getItem('userScores')) || [];
-    let sortedUsers = userScores.sort((a, b) => b.score - a.score);
-
-    // elements 
-    let top1Name = document.getElementById("top1Name");
-    let top1Score = document.getElementById("top1Score");
-    let top2Name = document.getElementById("top2Name");
-    let top2Score = document.getElementById("top2Score");
-    let top3Name = document.getElementById("top3Name");
-    let top3Score = document.getElementById("top3Score");
-    let top4Name = document.getElementById("top4Name");
-    let top4Score = document.getElementById("top4Score");
-    let top5Name = document.getElementById("top5Name");
-    let top5Score = document.getElementById("top5Score");
-    let top6Name = document.getElementById("top6Name");
-    let top6Score = document.getElementById("top6Score");
-
-    // let topernames = document.querySelectorAll('.topernames');
-    // let topScores = document.querySelectorAll('.topScores');
-
-    let top6 = sortedUsers.slice(0, 6);
-    console.log("Leaderboard (Top 6):");
-    console.log(top6);
-    //    console.log(top1Name).value;
-
-    top6.forEach((userScores, index) => {
-        // console.log(top1Name);
-
-        if (index == 0) {
-            top1Name.innerHTML = `${userScores.testUserName}`
-            top1Score.innerHTML = `${userScores.score}`;
-        }
-        else if (index == 1) {
-            top2Name.innerHTML = `${userScores.testUserName}`
-            top2Score.innerHTML = `${userScores.score}`;
-        }
-        else if (index == 2) {
-            top3Name.innerHTML = `${userScores.testUserName}`
-            top3Score.innerHTML = `${userScores.score}`;
-        }
-        else if (index == 3) {
-            top4Name.innerHTML = `${userScores.testUserName}`
-            top4Score.innerHTML = `${userScores.score}`;
-        }
-        else if (index == 4) {
-            top5Name.innerHTML = `${userScores.testUserName}`
-            top5Score.innerHTML = `${userScores.score}`;
-        }
-        else {
-            top6Name.innerHTML = `${userScores.testUserName}`
-            top6Score.innerHTML = `${userScores.score}`;
-        }
-    });
-}
-
-// Function to show current user's rank
-function rankDisplay() {
-
-    let userScores = JSON.parse(localStorage.getItem('userScores')) || [];
-
-    let sortedUsers = userScores.sort((a, b) => b.score - a.score);
-    // console.log(sortedUsers)
-
-    let currentUserName = testUser.fullName;
-    // console.log(currentUserName);
-
-    let currentUser = sortedUsers.find(user => user.testUserName === currentUserName);
-    console.log(currentUser);
-
-    let rankDisplayElement = document.getElementById("rankDisplay");
-    let rankScoreElement = document.getElementById("rankScore");
-
-
-    if (currentUser) {
-        //   let userRank = sortedUsers.findIndex(sortedUsers => sortedUsers.score === currentUser.score) + 1;
-        let userRank = sortedUsers.findIndex(user => user.testUserName === currentUserName) + 1;
-
-        console.log(currentUser.score);
-        console.log(userRank);
-
-        rankDisplayElement.innerHTML = `Wow You Rank ${userRank}`;
-        rankScoreElement.innerHTML = `Your Score is ${currentUser.score}`
-    } else {
-        rankDisplayElement.innerHTML = `User not found.`;
-    }
-    // debugger
-}
-
+// Function to move to the next question
 function nextQuestion() {
-    const selectedOption = document.querySelector('input[name="options"]').checked;
-
-    console.log(selectedOption)
-
+    const selectedOption = document.querySelector('input[name="options"]:checked');
 
     if (!selectedOption) {
-        // console.log(selectedOption)
-        alert("Select a option");
+        alert("Please select an option.");
         return;
     }
 
-    else if (quizRandomPosition < totalQuestions - 1) {
-        quizRandomPosition++;
-        questionNumber++;
-        displayQuestion();
-    }
+    // Save the selected answer
+    randomQuestion[index].choosedAnswer = selectedOption.value;
 
-    else if (quizRandomPosition < quizRandomQuestion.length) {
-        updateScore();
-        displayQuestion();
+    // Move to the next question or submit the quiz
+    if (index < totalQuestions - 1) {
+        index++;
         questionNumber++;
-        quizRandomPosition++;
+        displayQuestion();
+    } else {
+        submitQuiz();
     }
 }
 
-function updateScore() {
-    console.log("update ")
-    const checkOption = document.querySelector('input[name="options"]:checked')
-    console.log(checkOption.value)
-    // console.log(quizRandomQuestion)
-    // console.log(selectedAnswer)
-    // console.log(selectedAnswer.value)
-    console.log(quizRandomQuestion[quizRandomPosition].rightAns)
-    let choosedRightAns = (checkOption.value == quizRandomQuestion[quizRandomPosition].rightAns)
-    console.log({ checkOption, quizRandomQuestion, quizRandomPosition })
-    // console.log(choosedRightAns)
-
-    if (choosedRightAns) {
-        score += 2;
-    }
-
-    console.log({ choosedRightAns, score })
-    // console.log(`your score is ${score}`);   
-}
-
-
+// Function to go back to the previous question
 function previousQuestion() {
-    if (quizRandomPosition > 0) {
-        quizRandomPosition--;
+    if (index > 0) {
+        index--;
         questionNumber--;
         displayQuestion();
+        showSelectedAnswer();
     }
 }
 
-function choosedAnswer(quizRandomPosition) {
-    quizRandomQuestion[quizRandomPosition]["choosedAnswer"] = quizRandomQuestion[quizRandomPosition].options[i]
+// Function to calculate the score
+function updateScore() {
+    score = randomQuestion.reduce((acc, question) => {
+        return acc + (question.choosedAnswer === question.rightAns ? 2 : 0);
+    }, 0);
+    console.log(score)
 }
 
-// function nextQuestion(){
-//     let selectedOption = document.querySelectorAll("[name='option']");
-//     console.log(selectedOption)
-//     if (quizRandomPosition == 9) {
-//         submit();
-//         return;
-//     }
+// Function to submit the quiz and save the score
+function submitQuiz() {
+    updateScore();
 
-//     if(!optionSelected){
-//         alert("select a option")
-//     }
-
-//     let optionSelected = false
-//     selectedOption.forEach((checkedOption) => {
-//         if (checkedOption.checked) {
-//             if (quizRandomPosition < 9) {
-//                 quizRandomPosition++;
-//                 // countNumber++;
-//                 displayQuestion();
-//             }
-//             optionSelected = true;
-//         }
-//     });
-
-//     // if (!selectedOption) {
-//     //     alert("select a option")
-//     // }
-
-
-// }
-
-function submit() {
-    console.log("submit")
-    for (let i = 0; i < quizRandomQuestion.length; i++) {
-        // if (choosedQuestion[i].choosedAnswer == choosedQuestion[i].answer) {
-        //     score += 10;
-        // }
-        if (quizRandomPosition[i].choosedAnswer == quizRandomPosition[i].answer) {
-            score += 2;
-        }
-    }
-}
-
-if (quizRandomPosition == quizRandomQuestion.length) {
-
-    //  save score here in localstorage in format
-    let userLogedIn = (localStorage.getItem('isLoggedin'));
-    console.log(userLogedIn);
-
-    // getting name and email when user logged in
-    let testUser = (JSON.parse(userLogedIn));
+    let userLogedIn = JSON.parse(localStorage.getItem('isLoggedin'));
+    let testUser = userLogedIn;
 
     // Prepare user score data
     const userScore = {
         testUserName: testUser.fullName,
         testUserEmail: testUser.email,
         score: score,
-        selectedQuiz: [quizRandomQuestion, choosedAnswer]
+        selectedQuiz: [{randomQuestion, choosedAnswer}]
     };
-
-    // localStorage.setItem("SelectedOption", selectedOption) || []
 
     // Retrieve the stored user score data, or initialize it
     let storedScores = JSON.parse(localStorage.getItem('userScores')) || [];
-
-    // Add the current user's score to the list
     storedScores.push(userScore);
 
     // Save the updated score list back to localStorage
@@ -648,8 +462,69 @@ if (quizRandomPosition == quizRandomQuestion.length) {
 
     // Redirect to leaderboard or display the result page
     window.location.href = "leaderboard.html";
-    console.log("Quiz ended. User's score saved.");
 }
 
+// Function to show top 6 leaderboard
+function showLeaderboard() {
+    let userScores = JSON.parse(localStorage.getItem('userScores')) || [];
 
+    // Sort the users by score in descending order
+    let sortedUsers = userScores.sort((a, b) => b.score - a.score).slice(0, 6);
+
+    // Update leaderboard display
+    sortedUsers.forEach((user, index) => {
+        document.getElementById(`top${index + 1}Name`).innerHTML = user.testUserName;
+        document.getElementById(`top${index + 1}Score`).innerHTML = user.score;
+    });
+}
+
+// Function to show the user's rank
+function rankDisplay() {
+    let userScores = JSON.parse(localStorage.getItem('userScores')) || [];
+    let sortedUsers = userScores.sort((a, b) => b.score - a.score);
+
+    let currentUserName = JSON.parse(localStorage.getItem('isLoggedin')).fullName;
+    let currentUser = sortedUsers.find(user => user.testUserName === currentUserName);
+
+    if (currentUser) {
+        let userRank = sortedUsers.findIndex(user => user.testUserName === currentUserName) + 1;
+        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}`;
+        document.getElementById("rankScore").innerHTML = `Your Score: ${currentUser.score}`;
+    } else {
+        document.getElementById("rankDisplay").innerHTML = "User not found.";
+    }
+}
+
+// Initial call to display the first question
+displayQuestion();
+
+// Function to save the selected answer
+function saveSelectedAnswer() {
+    const selectedOption = document.querySelector('input[name="options"]:checked');
+    if (selectedOption) {
+        selectedAnswers[index] = selectedOption.value; // Save selected answer for this question
+    }
+}
+
+// Function to show previously selected answer
+function showSelectedAnswer() {
+    const previousAnswer = selectedAnswers[index];
+    if (previousAnswer) {
+        // If there's a previously selected answer, mark the corresponding option as checked
+        const selectedOption = document.querySelector(`input[value="${previousAnswer}"]`);
+        if (selectedOption) {
+            selectedOption.checked = true;
+        }
+    }
+}
+
+nextButton.addEventListener('click', () => {
+    saveSelectedAnswer(); // Save answer before moving to the next question
+    nextQuestion();
+});
+
+// Event listener for 'Previous' button
+previousButton.addEventListener('click', () => {
+    previousQuestion(); // Go to previous question and show answer
+});
 
