@@ -307,8 +307,7 @@ let quizQuestions = [
     }
 ];
 
-localStorage.setItem("quizQuestions", quizQuestions);
-// const fetchQuize = JSON.parse(localStorage.getItem("quizQuestions"));
+localStorage.setItem("quizQuestions", JSON.stringify(quizQuestions));
 
 let score = 0;
 let questionNumber = 1;
@@ -357,34 +356,28 @@ function displayQuestion() {
         // Display the options dynamically
         optionElement.innerHTML = currentQuestion.options.map((option, index) =>
             `<div class="optionText">
-                ${index + 1}. 
-                <input type="radio" name="options" id="option${index}" value="${option.value}">
-                <label for="option${index}">${option.value}</label>
-            </div>`).join("");
+            ${index + 1}.
+            <input type="radio" name="options" id="option${index}" value="${option.value}">
+            <label for="option${index}">${option.value}</label>
+            </div>`).join("")
 
         // Handle Next/Previous buttons display logic
-        // previousButton.style.display = index > 0 ? 'inline' : 'none';
-        // nextButton.innerHTML = index === totalQuestions - 1
-        //     ? "Submit and Continue"
-        //     : "Next <i class='fa-solid fa-arrow-right'></i>";
 
-        if(index == 0){
-            previousButton.style.display = "none"
-        }
-
-        if (index > 0) {
-            previousButton.style.display = "inline"
-            nextButton.innerHTML = "Next <i class='fa-solid fa-arrow-right'></i>"
-        }
-
+        if (index > 0) 
+            { previousButton.innerHTML = "<i class='fa-solid fa-arrow-left'></i> previous" };
+        
         if (index == 8) {
             questionHeading.innerHTML = "<h1>Last 2 Questions Left..</h1"
         }
 
         if (index == 9) {
             questionHeading.innerHTML = "<h1>Hey this is the Last Question </h1>"
-            nextButton.innerHTML = "Submit and Continue"
         }
+
+        nextButton.innerHTML = index === totalQuestions - 1
+        ? "Submit and Continue"
+        : "Next <i class='fa-solid fa-arrow-right'></i>";
+
     }
 
     updateProgressBar();
@@ -401,6 +394,13 @@ function updateProgressBar() {
 // Function to move to the next question
 function nextQuestion() {
     const selectedOption = document.querySelector('input[name="options"]:checked');
+    
+    if (selectedOption) {
+        console.log("selectedOption :-", selectedOption.value);
+    } 
+    // else {
+    //     console.log("No option selected");
+    // }
 
     if (!selectedOption) {
         alert("Please select an option.");
@@ -450,7 +450,7 @@ function submitQuiz() {
         testUserName: testUser.fullName,
         testUserEmail: testUser.email,
         score: score,
-        selectedQuiz: [{randomQuestion, choosedAnswer}]
+        selectedQuiz: [randomQuestion]
     };
 
     // Retrieve the stored user score data, or initialize it
@@ -488,6 +488,7 @@ function rankDisplay() {
 
     if (currentUser) {
         let userRank = sortedUsers.findIndex(user => user.testUserName === currentUserName) + 1;
+        
         document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}`;
         document.getElementById("rankScore").innerHTML = `Your Score: ${currentUser.score}`;
     } else {
@@ -495,36 +496,26 @@ function rankDisplay() {
     }
 }
 
+// let selectedAnswers;
+// // Function to save the selected answer
+// function saveSelectedAnswer() {
+//     const selectedOption = document.querySelector('input[name="options"]:checked');
+//     if (selectedOption) {
+//         selectedAnswers[index] = selectedOption.value; // Save selected answer for this question
+//     }
+// }
+
+// // Function to show previously selected answer
+// function showSelectedAnswer() {
+//     const previousAnswer = selectedAnswers[index];
+//     if (previousAnswer) {
+//         // If there's a previously selected answer, mark the corresponding option as checked
+//         const selectedOption = document.querySelector(`input[value="${previousAnswer}"]`);
+//         if (selectedOption) {
+//             selectedOption.checked = true;
+//         }
+//     }
+// }
+
 // Initial call to display the first question
 displayQuestion();
-
-// Function to save the selected answer
-function saveSelectedAnswer() {
-    const selectedOption = document.querySelector('input[name="options"]:checked');
-    if (selectedOption) {
-        selectedAnswers[index] = selectedOption.value; // Save selected answer for this question
-    }
-}
-
-// Function to show previously selected answer
-function showSelectedAnswer() {
-    const previousAnswer = selectedAnswers[index];
-    if (previousAnswer) {
-        // If there's a previously selected answer, mark the corresponding option as checked
-        const selectedOption = document.querySelector(`input[value="${previousAnswer}"]`);
-        if (selectedOption) {
-            selectedOption.checked = true;
-        }
-    }
-}
-
-nextButton.addEventListener('click', () => {
-    saveSelectedAnswer(); // Save answer before moving to the next question
-    nextQuestion();
-});
-
-// Event listener for 'Previous' button
-previousButton.addEventListener('click', () => {
-    previousQuestion(); // Go to previous question and show answer
-});
-

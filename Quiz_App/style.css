@@ -372,14 +372,13 @@ svg {
     width: 500px
 }
 
-.optionText input[type="radio"]:checked+label {
+.optionText input[name="options"]:checked+label{
     background-color: #E8BE21;
     border-color: #E8BE21;
     width: 500px;
 }
 
 /*  */
-
 .display-buttons {
     display: flex;
     justify-content: space-between;
