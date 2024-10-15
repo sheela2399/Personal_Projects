@@ -108,7 +108,7 @@ function validateLogin() {
 
         // Redirect to the quiz page
         window.location.href = "quiz.html";
-        window.onload = displayUserInfo(rankDisplay);
+        // window.onload = displayUserInfo(rankDisplay);
     }
 };
 
@@ -377,7 +377,6 @@ function displayQuestion() {
         nextButton.innerHTML = index === totalQuestions - 1
         ? "Submit and Continue"
         : "Next <i class='fa-solid fa-arrow-right'></i>";
-
     }
 
     updateProgressBar();
@@ -398,11 +397,7 @@ function nextQuestion() {
     if (selectedOption) {
         console.log("selectedOption :-", selectedOption.value);
     } 
-    // else {
-    //     console.log("No option selected");
-    // }
-
-    if (!selectedOption) {
+        if (!selectedOption) {
         alert("Please select an option.");
         return;
     }
@@ -435,11 +430,13 @@ function updateScore() {
     score = randomQuestion.reduce((acc, question) => {
         return acc + (question.choosedAnswer === question.rightAns ? 2 : 0);
     }, 0);
-    console.log(score)
+    console.log(`your score is ${score}`)
 }
 
 // Function to submit the quiz and save the score
 function submitQuiz() {
+// const selectedOption = document.querySelector('input[name="options"]:checked');
+
     updateScore();
 
     let userLogedIn = JSON.parse(localStorage.getItem('isLoggedin'));
@@ -450,7 +447,7 @@ function submitQuiz() {
         testUserName: testUser.fullName,
         testUserEmail: testUser.email,
         score: score,
-        selectedQuiz: [randomQuestion]
+        selectedQuiz: [randomQuestion],
     };
 
     // Retrieve the stored user score data, or initialize it
@@ -488,34 +485,25 @@ function rankDisplay() {
 
     if (currentUser) {
         let userRank = sortedUsers.findIndex(user => user.testUserName === currentUserName) + 1;
-        
-        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}`;
+
+        // condition for 1st, 2nd, 3rd display
+        if(userRank == 1){
+        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}st`;
+        }
+        else if (userRank == 2){
+        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}nd`;
+        }
+        else if (userRank == 3){
+        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}rd`;
+        }else{
+        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}th`;
+        }   
+        // document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}`;
         document.getElementById("rankScore").innerHTML = `Your Score: ${currentUser.score}`;
     } else {
         document.getElementById("rankDisplay").innerHTML = "User not found.";
     }
 }
-
-// let selectedAnswers;
-// // Function to save the selected answer
-// function saveSelectedAnswer() {
-//     const selectedOption = document.querySelector('input[name="options"]:checked');
-//     if (selectedOption) {
-//         selectedAnswers[index] = selectedOption.value; // Save selected answer for this question
-//     }
-// }
-
-// // Function to show previously selected answer
-// function showSelectedAnswer() {
-//     const previousAnswer = selectedAnswers[index];
-//     if (previousAnswer) {
-//         // If there's a previously selected answer, mark the corresponding option as checked
-//         const selectedOption = document.querySelector(`input[value="${previousAnswer}"]`);
-//         if (selectedOption) {
-//             selectedOption.checked = true;
-//         }
-//     }
-// }
 
 // Initial call to display the first question
 displayQuestion();
