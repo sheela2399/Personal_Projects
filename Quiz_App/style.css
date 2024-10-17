@@ -401,6 +401,11 @@ svg {
     font-weight: 600;
 }
 
+.selected-option {
+    background-color:  #E8BE21;
+    width: 500px;
+  }
+
 /* Quiz-Questions display page ends - question.html*/
 
 /* leaderboard code start */

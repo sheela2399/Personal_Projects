@@ -46,13 +46,12 @@ function saveUserData(userData) {
     }
     storedUserData.push(userData);
     localStorage.setItem('users', JSON.stringify(storedUserData));
-    alert("Registration Successfully");
+    alert("Registration Done Successfully");
     window.location.href = "login.html";
 }
 
 function passwordHideShow() {
     let showPassword = document.getElementById("Show-password")
-    console.log(showPassword);
     let password = document.querySelector("#password");
     if (password.type === "password") {
         password.type = "text";
@@ -62,10 +61,9 @@ function passwordHideShow() {
         showPassword.style.color = "black";
     }
 }
+// signup code ends..
 
-// signup code ends
-
-// login code start
+// login code start...
 function validateLogin() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -84,11 +82,11 @@ function validateLogin() {
         invalidMsgEmail.innerHTML = "Please enter your email"
     }
 
-    else if (password == "") {
+    if (password == "") {
         invalidMsgPassword.innerHTML = "Please enter your password"
     }
 
-    else if (!user) {
+    if (!user) {
         invalidMsgEmail.innerHTML = "Email not registered";
         return;
     }
@@ -103,7 +101,7 @@ function validateLogin() {
         invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
         invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
 
-        // Set a flag to indicate that the user is logged in
+        // flag in localstorage to indicate that the user is logged in
         localStorage.setItem("isLoggedin", JSON.stringify(user));
 
         // Redirect to the quiz page
@@ -343,6 +341,8 @@ for (let i = 0; i < totalQuestions; i++) {
     randomQuestion.push(quizQuestions[randomIndex]);
 }
 
+let selectedAnswers = [];
+
 // Function to display a question
 function displayQuestion() {
     if (questionElement && optionElement) {
@@ -354,29 +354,34 @@ function displayQuestion() {
         questionElement.innerHTML = currentQuestion.question;
 
         // Display the options dynamically
-        optionElement.innerHTML = currentQuestion.options.map((option, index) =>
+        optionElement.innerHTML = currentQuestion.options.map((option, optionIndex) => 
             `<div class="optionText">
-            ${index + 1}.
-            <input type="radio" name="options" id="option${index}" value="${option.value}">
-            <label for="option${index}">${option.value}</label>
-            </div>`).join("")
+                <input type="radio" name="options" id="option${optionIndex}" value="${option.value}">
+                <label for="option${optionIndex}">${option.value}</label>
+            </div>`).join("");
 
-        // Handle Next/Previous buttons display logic
+        // Attach event listeners for option selection
+        attachOptionListeners();
 
-        if (index > 0) 
-            { previousButton.innerHTML = "<i class='fa-solid fa-arrow-left'></i> previous" };
+        // Show previously selected answer if available
+        showSelectedAnswer();
         
-        if (index == 8) {
-            questionHeading.innerHTML = "<h1>Last 2 Questions Left..</h1"
+        // Handle Next/Previous buttons display logic
+        if (index > 0) {
+            previousButton.innerHTML = "<i class='fa-solid fa-arrow-left'></i> previous";
         }
 
-        if (index == 9) {
-            questionHeading.innerHTML = "<h1>Hey this is the Last Question </h1>"
+        if (index === 8) {
+            questionHeading.innerHTML = "<h1>Last 2 Questions Left..</h1>";
+        }
+
+        if (index === 9) {
+            questionHeading.innerHTML = "<h1>Hey, this is the Last Question</h1>";
         }
 
         nextButton.innerHTML = index === totalQuestions - 1
-        ? "Submit and Continue"
-        : "Next <i class='fa-solid fa-arrow-right'></i>";
+            ? "Submit and Continue"
+            : "Next <i class='fa-solid fa-arrow-right'></i>";
     }
 
     updateProgressBar();
@@ -390,14 +395,43 @@ function updateProgressBar() {
     }
 }
 
+// Function to attach listeners to the options
+function attachOptionListeners() {
+    const options = document.querySelectorAll('input[name="options"]');
+    options.forEach(option => {
+        option.addEventListener('change', (event) => {
+            const selectedDiv = event.target.closest('.optionText');
+            // Remove selected-option class from all options
+            const allOptions = document.querySelectorAll('.optionText');
+            allOptions.forEach(opt => opt.classList.remove('selected-option'));
+
+            // Add selected-option class to the selected one
+            selectedDiv.classList.add('selected-option');
+
+            // Store the selected answer
+            randomQuestion[index].choosedAnswer = event.target.value;
+            selectedAnswers[index] = event.target.value; // Save selected answer for this question
+        });
+    });
+}
+
+// Function to show the previously selected answer
+function showSelectedAnswer() {
+    const previousAnswer = selectedAnswers[index];
+    if (previousAnswer) {
+        const selectedOption = document.querySelector(`input[value="${previousAnswer}"]`);
+        if (selectedOption) {
+            selectedOption.checked = true;
+            selectedOption.closest('.optionText').classList.add('selected-option');
+        }
+    }
+}
+
 // Function to move to the next question
 function nextQuestion() {
     const selectedOption = document.querySelector('input[name="options"]:checked');
-    
-    if (selectedOption) {
-        console.log("selectedOption :-", selectedOption.value);
-    } 
-        if (!selectedOption) {
+
+    if (!selectedOption) {
         alert("Please select an option.");
         return;
     }
@@ -415,17 +449,6 @@ function nextQuestion() {
     }
 }
 
-// Function to go back to the previous question
-function previousQuestion() {
-    if (index > 0) {
-        index--;
-        questionNumber--;
-        displayQuestion();
-        showSelectedAnswer();
-    }
-}
-
-// Function to calculate the score
 function updateScore() {
     score = randomQuestion.reduce((acc, question) => {
         return acc + (question.choosedAnswer === question.rightAns ? 2 : 0);
@@ -433,16 +456,23 @@ function updateScore() {
     console.log(`your score is ${score}`)
 }
 
-// Function to submit the quiz and save the score
-function submitQuiz() {
-// const selectedOption = document.querySelector('input[name="options"]:checked');
 
+// Function to go back to the previous question
+function previousQuestion() {
+    if (index > 0) {
+        index--;
+        questionNumber--;
+        displayQuestion();
+    }
+}
+
+// Function to submit the quiz and calculate the score
+function submitQuiz() {
     updateScore();
 
     let userLogedIn = JSON.parse(localStorage.getItem('isLoggedin'));
     let testUser = userLogedIn;
 
-    // Prepare user score data
     const userScore = {
         testUserName: testUser.fullName,
         testUserEmail: testUser.email,
@@ -450,14 +480,11 @@ function submitQuiz() {
         selectedQuiz: [randomQuestion],
     };
 
-    // Retrieve the stored user score data, or initialize it
     let storedScores = JSON.parse(localStorage.getItem('userScores')) || [];
     storedScores.push(userScore);
 
-    // Save the updated score list back to localStorage
     localStorage.setItem('userScores', JSON.stringify(storedScores));
 
-    // Redirect to leaderboard or display the result page
     window.location.href = "leaderboard.html";
 }
 
@@ -487,17 +514,17 @@ function rankDisplay() {
         let userRank = sortedUsers.findIndex(user => user.testUserName === currentUserName) + 1;
 
         // condition for 1st, 2nd, 3rd display
-        if(userRank == 1){
-        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}st`;
+        if (userRank == 1) {
+            document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}st`;
         }
-        else if (userRank == 2){
-        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}nd`;
+        else if (userRank == 2) {
+            document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}nd`;
         }
-        else if (userRank == 3){
-        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}rd`;
-        }else{
-        document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}th`;
-        }   
+        else if (userRank == 3) {
+            document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}rd`;
+        } else {
+            document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}th`;
+        }
         // document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}`;
         document.getElementById("rankScore").innerHTML = `Your Score: ${currentUser.score}`;
     } else {
