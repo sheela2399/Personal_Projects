@@ -32,7 +32,6 @@ function validateSignup(event) {
         };
         saveUserData(userData);
     }
-
     fullName = "";
     email = "";
 };
@@ -110,12 +109,22 @@ function validateLogin() {
     }
 };
 
-// login code ends
+// login code ends...
 
-let userLogedIn = (localStorage.getItem('isLoggedin'));
+let userLoggedIn = (localStorage.getItem('isLoggedin'));
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Check if the user is logged in
+    
+
+    // If user is not logged in, redirect to login page
+    if (!userLoggedIn) {
+        // window.location.href = "login.html";
+    }
+});
 
 // getting name and email when user logged in and setting as testUser
-let testUser = (JSON.parse(userLogedIn));
+let testUser = (JSON.parse(userLoggedIn));
 // console.log(testUser);
 
 // quiz page code to get Name at top starts and log out
@@ -123,7 +132,7 @@ let testUser = (JSON.parse(userLogedIn));
 // Function to get user initials from full name
 function getUserInitials() {
     const names = testUser.fullName.split(' ');
-    console.log(names);
+    // ]]console.log(names);
     if (names.length >= 2) {
         return names[0][0].toUpperCase() + names[1][0].toUpperCase(); // Initials of first and last name
     } else {
@@ -132,7 +141,7 @@ function getUserInitials() {
 }
 
 // Function to display the user's name or initials near the logo
-function displayUserInfo() {
+function displayUserName() {
     if (testUser.fullName) {
         const userNameElement = document.getElementById("userName");
         // const initials = getUserInitials(testUser.fullName);
@@ -140,7 +149,7 @@ function displayUserInfo() {
         userNameElement.innerHTML = `Welcome, ${testUser.fullName}`
     }
 }
-displayUserInfo()
+displayUserName()
 
 // Function to handle logout
 function logout() {
@@ -148,7 +157,9 @@ function logout() {
     window.location.href = "login.html"; // Redirect to login page
 }
 
-// quiz page code ends
+
+
+// quiz page code ends....
 
 //questions display starts..
 
@@ -313,6 +324,7 @@ let quizUsedIndexes = new Set();
 let randomQuestion = [];
 let totalQuestions = 10;
 let index = 0;
+let selectedAnswers = [];
 const progressBarElement = document.getElementById("progress");
 const questionHeading = document.getElementById("questionHead");
 const questionNumberElement = document.getElementById("questionNum");
@@ -341,8 +353,6 @@ for (let i = 0; i < totalQuestions; i++) {
     randomQuestion.push(quizQuestions[randomIndex]);
 }
 
-let selectedAnswers = [];
-
 // Function to display a question
 function displayQuestion() {
     if (questionElement && optionElement) {
@@ -353,37 +363,33 @@ function displayQuestion() {
         questionNumberElement.innerHTML = `${index + 1}.`;
         questionElement.innerHTML = currentQuestion.question;
 
-        // Display the options dynamically
+        // Display the 4 options..
         optionElement.innerHTML = currentQuestion.options.map((option, optionIndex) => 
             `<div class="optionText">
                 <input type="radio" name="options" id="option${optionIndex}" value="${option.value}">
-                <label for="option${optionIndex}">${option.value}</label>
+                <label for="option${optionIndex}">${optionIndex + 1}. ${option.value}</label>
             </div>`).join("");
 
         // Attach event listeners for option selection
-        attachOptionListeners();
+        attachOptionSelector();
 
         // Show previously selected answer if available
         showSelectedAnswer();
         
-        // Handle Next/Previous buttons display logic
+        // Handle Next/Previous buttons display..
         if (index > 0) {
-            previousButton.innerHTML = "<i class='fa-solid fa-arrow-left'></i> previous";
+            previousButton.innerHTML = "<i class='fa-solid fa-arrow-left'></i> Previous";
         }
-
         if (index === 8) {
             questionHeading.innerHTML = "<h1>Last 2 Questions Left..</h1>";
         }
-
         if (index === 9) {
             questionHeading.innerHTML = "<h1>Hey, this is the Last Question</h1>";
         }
-
         nextButton.innerHTML = index === totalQuestions - 1
             ? "Submit and Continue"
             : "Next <i class='fa-solid fa-arrow-right'></i>";
     }
-
     updateProgressBar();
 }
 
@@ -396,7 +402,7 @@ function updateProgressBar() {
 }
 
 // Function to attach listeners to the options
-function attachOptionListeners() {
+function attachOptionSelector() {
     const options = document.querySelectorAll('input[name="options"]');
     options.forEach(option => {
         option.addEventListener('change', (event) => {
@@ -410,7 +416,10 @@ function attachOptionListeners() {
 
             // Store the selected answer
             randomQuestion[index].choosedAnswer = event.target.value;
-            selectedAnswers[index] = event.target.value; // Save selected answer for this question
+            
+            // Save selected answer for this question
+            selectedAnswers[index] = event.target.value;
+
         });
     });
 }
@@ -419,10 +428,10 @@ function attachOptionListeners() {
 function showSelectedAnswer() {
     const previousAnswer = selectedAnswers[index];
     if (previousAnswer) {
-        const selectedOption = document.querySelector(`input[value="${previousAnswer}"]`);
-        if (selectedOption) {
-            selectedOption.checked = true;
-            selectedOption.closest('.optionText').classList.add('selected-option');
+        const selectedPrevOption = document.querySelector(`input[value="${previousAnswer}"]`);
+        if (selectedPrevOption) {
+            selectedPrevOption.checked = true;
+            selectedPrevOption.closest('.optionText').classList.add('selected-option');
         }
     }
 }
@@ -453,7 +462,9 @@ function updateScore() {
     score = randomQuestion.reduce((acc, question) => {
         return acc + (question.choosedAnswer === question.rightAns ? 2 : 0);
     }, 0);
-    console.log(`your score is ${score}`)
+    // console.log(acc)
+    // console.log(score)
+    // console.log(`your score is ${acc, score}`)
 }
 
 
@@ -470,8 +481,8 @@ function previousQuestion() {
 function submitQuiz() {
     updateScore();
 
-    let userLogedIn = JSON.parse(localStorage.getItem('isLoggedin'));
-    let testUser = userLogedIn;
+    // let userLogedIn = JSON.parse(localStorage.getItem('isLoggedin'));
+    // let testUser = userLogedIn;
 
     const userScore = {
         testUserName: testUser.fullName,
@@ -534,3 +545,16 @@ function rankDisplay() {
 
 // Initial call to display the first question
 displayQuestion();
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    let userLoggedIn = JSON.parse(localStorage.getItem('isLoggedin'));
+
+    // If user is not logged in, redirect to login page
+    if (!userLoggedIn) {
+        alert("Please login first");
+        window.location.href = "login.html";
+    }
+});
+
+

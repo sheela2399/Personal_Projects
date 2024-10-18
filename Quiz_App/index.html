@@ -41,19 +41,17 @@
                    <span class="forshowpass"><input type="password" id="password" name="password" placeholder="Password" ><i class="fa-regular fa-eye-slash" onclick="passwordHideShow()" id="Show-password"></i></span>
                     <br><span id="invalid-msg-password" class="invalid-msg"></span>
                 </div>
+                <div class="terms">
+                    <span>
+                      <input type="checkbox" required id="terms">
+                    <label name ="terms">I accept <a href="#" class="text-blue">Terms & conditions</a></label>
+                </span></div>
                 <button class="btn btn-primary" id="submit-button" onclick="validateSignup(event)"> Signup </button>
                 <div class="first-row">
                     <span id="invalid-msg-submit" class="invalid-msg"></span>
                 </div>
                 <div class="link-google dis-row-center">
                     <img src="assests/devicon_google.png" alt="google-logo"> <a href="">Sign up with Google</a>
-                </div>
-
-                <div class="terms">
-                    <span>
-                      <input type="checkbox" required id="terms">
-                    <label name ="terms">I accept <a href="#" class="text-blue">Terms & conditions</a></label>
-                </span>
                 </div>
                 <p class=" link-account grey-text dis-row-center">Have an account? <a class="text-blue"
                         href="login.html">Log in ?</a></p>

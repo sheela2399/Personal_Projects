@@ -230,8 +230,8 @@ svg {
 .forshowpass i {
     padding: 10px;
     margin: 5px 0px;
-    position: absolute;
-    right: 140px;
+    position: relative;
+    right: 55px;
 }
 
 .invalid-msg {
@@ -339,7 +339,8 @@ svg {
 .progress {
     width: 20%;
     height: 100%;
-    background-color: #f9b233;
+    background-color:  #F3BD00;
+    ;
     transition: width 0.4s ease;
 }
 
@@ -369,7 +370,8 @@ svg {
 
 .optionText label:hover {
     background-color: #E8BE21;
-    width: 500px
+    width: 500px;
+    cursor: pointer;
 }
 
 .optionText input[name="options"]:checked+label{
@@ -385,16 +387,27 @@ svg {
     margin: 20px 30px 0px 0px;
 }
 
-#previousquestion,
+#previousquestion ,
 #nextquestion {
     border: none;
     color: grey;
-    font-size: larger;
+    font-size: 25px;
     border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: white;
+    text-align: center;
 }
 
+#previousquestion > i ,
+#nextquestion > i{
+    font-size: 22px;
+    /* font-weight: 200; */
+}
+
+
 #nextquestion {
-    color: blue;
+    color: #0948B4;
 }
 
 #options .optionText {
