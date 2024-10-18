@@ -113,19 +113,10 @@ function validateLogin() {
 
 let userLoggedIn = (localStorage.getItem('isLoggedin'));
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Check if the user is logged in
-    
-
-    // If user is not logged in, redirect to login page
-    if (!userLoggedIn) {
-        // window.location.href = "login.html";
-    }
-});
-
 // getting name and email when user logged in and setting as testUser
 let testUser = (JSON.parse(userLoggedIn));
-// console.log(testUser);
+console.log(testUser);
+console.log(testUser.fullName);
 
 // quiz page code to get Name at top starts and log out
 
@@ -156,8 +147,6 @@ function logout() {
     localStorage.removeItem("isLoggedin"); // Optionally remove login status
     window.location.href = "login.html"; // Redirect to login page
 }
-
-
 
 // quiz page code ends....
 
@@ -364,7 +353,7 @@ function displayQuestion() {
         questionElement.innerHTML = currentQuestion.question;
 
         // Display the 4 options..
-        optionElement.innerHTML = currentQuestion.options.map((option, optionIndex) => 
+        optionElement.innerHTML = currentQuestion.options.map((option, optionIndex) =>
             `<div class="optionText">
                 <input type="radio" name="options" id="option${optionIndex}" value="${option.value}">
                 <label for="option${optionIndex}">${optionIndex + 1}. ${option.value}</label>
@@ -375,7 +364,7 @@ function displayQuestion() {
 
         // Show previously selected answer if available
         showSelectedAnswer();
-        
+
         // Handle Next/Previous buttons display..
         if (index > 0) {
             previousButton.innerHTML = "<i class='fa-solid fa-arrow-left'></i> Previous";
@@ -416,7 +405,7 @@ function attachOptionSelector() {
 
             // Store the selected answer
             randomQuestion[index].choosedAnswer = event.target.value;
-            
+
             // Save selected answer for this question
             selectedAnswers[index] = event.target.value;
 
@@ -466,7 +455,7 @@ function updateScore() {
     // console.log(score)
     // console.log(`your score is ${acc, score}`)
 }
-
+console.log(score)
 
 // Function to go back to the previous question
 function previousQuestion() {
@@ -479,24 +468,26 @@ function previousQuestion() {
 
 // Function to submit the quiz and calculate the score
 function submitQuiz() {
-    updateScore();
+    let confirmAlert = confirm("Are you sure want to submit the quiz?");
+    if (confirmAlert) {
+        updateScore();
+        // let userLogedIn = JSON.parse(localStorage.getItem('isLoggedin'));
+        // let testUser = userLogedIn;
 
-    // let userLogedIn = JSON.parse(localStorage.getItem('isLoggedin'));
-    // let testUser = userLogedIn;
+        const userScore = {
+            testUserName: testUser.fullName,
+            testUserEmail: testUser.email,
+            score: score,
+            selectedQuiz: [randomQuestion],
+        };
 
-    const userScore = {
-        testUserName: testUser.fullName,
-        testUserEmail: testUser.email,
-        score: score,
-        selectedQuiz: [randomQuestion],
-    };
+        let storedScores = JSON.parse(localStorage.getItem('userScores')) || [];
+        storedScores.push(userScore);
 
-    let storedScores = JSON.parse(localStorage.getItem('userScores')) || [];
-    storedScores.push(userScore);
+        localStorage.setItem('userScores', JSON.stringify(storedScores));
 
-    localStorage.setItem('userScores', JSON.stringify(storedScores));
-
-    window.location.href = "leaderboard.html";
+        window.location.href = "leaderboard.html";
+    }
 }
 
 // Function to show top 6 leaderboard
