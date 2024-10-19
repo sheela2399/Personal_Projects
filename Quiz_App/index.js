@@ -1,7 +1,7 @@
 // Signup form code
 // document.getElementById('signupForm').addEventListener('submit', function (event) {
 //     event.preventDefault();
-function validateSignup(event) {
+function validateSignup() {
     let fullName = document.getElementById('fullName').value;
     let email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -11,20 +11,36 @@ function validateSignup(event) {
     let reEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
     let rePass = /^(?=.*\d)(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])(?=.*[a-z])(?=.*[A-Z]).{5,10}$/;
 
-    if (fullName.length === 0) {
+    if (fullName == "" || email == "" || password == "") {
         invalidMsgFullName.innerHTML = "Enter a Name";
-        return false;
-    } else if (!reEmail.test(email)) {
         invalidMsgEmail.innerHTML = "Enter a valid Email";
+        invalidMsgPassword.innerHTML = "Enter a Password"
         return false;
-    } else if (!rePass.test(password)) {
-        invalidMsgPassword.innerHTML = "Enter a valid Password with one uppercase letter, one lowercase letter, and at least one special character.";
+    }
+    else {
+        invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+    }
+
+    if (!reEmail.test(email)) {
+        invalidMsgEmail.innerHTML = "Enter a valid Email";
         return false;
     }
     else {
         invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+    }
+
+    if (!rePass.test(password)) {
+        invalidMsgPassword.innerHTML = "Enter a valid Password with one uppercase letter, one lowercase letter, and at least one special character.";
+        return false;
+    }
+    else if (rePass.test(password)) {
         invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
-        invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+    }
+
+    else {
+        // invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+        // invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+        // invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
         const userData = {
             fullName: fullName,
             email: email,
@@ -34,7 +50,15 @@ function validateSignup(event) {
     }
     fullName = "";
     email = "";
-};
+}
+
+// Function if input matches current criteria...
+// function validInputSign() {
+//     if (!fullName.length === 0 || rePass.test(password) || reEmail.test(email)) { }
+//     invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+//     invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+//     invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+// }
 
 function saveUserData(userData) {
     const storedUserData = JSON.parse(localStorage.getItem('users')) || [];
@@ -141,6 +165,12 @@ function displayUserName() {
     }
 }
 displayUserName()
+
+function confirmLogout() {
+    document.getElementById("confirmLogoutOptionDiv").style.display = "inline";
+    document.getElementById("userNameDisplay").innerHTML = `Hii ${testUser.fullName}`;
+    document.getElementById("userEmailDisplay").innerHTML = testUser.email;
+}
 
 // Function to handle logout
 function logout() {
@@ -347,12 +377,12 @@ function displayQuestion() {
     if (questionElement && optionElement) {
         let currentQuestion = randomQuestion[index];
 
-        // Update question heading and question content
+        // question heading and question content
         questionHeading.innerHTML = `<h1>Question ${questionNumber} of ${totalQuestions}</h1>`;
         questionNumberElement.innerHTML = `${index + 1}.`;
         questionElement.innerHTML = currentQuestion.question;
 
-        // Display the 4 options..
+        // Display 4 options..
         optionElement.innerHTML = currentQuestion.options.map((option, optionIndex) =>
             `<div class="optionText">
                 <input type="radio" name="options" id="option${optionIndex}" value="${option.value}">
@@ -384,7 +414,7 @@ function displayQuestion() {
 
 // Function to update the progress bar
 function updateProgressBar() {
-    const progress = (index / totalQuestions) * 100;
+    const progress = ((index + 1) / totalQuestions) * 100;
     if (progressBarElement) {
         progressBarElement.style.width = `${progress}%`;
     }
@@ -501,6 +531,7 @@ function showLeaderboard() {
     sortedUsers.forEach((user, index) => {
         document.getElementById(`top${index + 1}Name`).innerHTML = user.testUserName;
         document.getElementById(`top${index + 1}Score`).innerHTML = user.score;
+        console.log(user.testUserName)
     });
 }
 
@@ -526,6 +557,9 @@ function rankDisplay() {
             document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}rd`;
         } else {
             document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}th`;
+            // document.getElementById("currentscore").innerHTML = `#${userRank}`;
+            document.getElementById(`top${index + 4}Name`).innerHTML = testUser.fullName;
+            document.getElementById(`top${index + 4}Score`).innerHTML = testUser.score;
         }
         // document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}`;
         document.getElementById("rankScore").innerHTML = `Your Score: ${currentUser.score}`;

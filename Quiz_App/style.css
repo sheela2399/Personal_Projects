@@ -122,8 +122,6 @@ svg {
     color: red;
 }
 
-
-
 /* start login section */
 
 .signup-container,
@@ -153,9 +151,12 @@ svg {
     margin: 50px;
 }
 
+.left {
+    padding-top: 60px;
+}
+
 .left img {
     width: 530px;
-    /* height: 510px; */
 }
 
 .heading {
@@ -183,7 +184,7 @@ svg {
     padding: 16px 20px 16px 20px;
     gap: 10px;
     border-radius: 8px;
-    box-shadow: 3px 3px 3px 3px lightslategray;
+    box-shadow: 3px 3px 3px 3px rgb(233, 239, 245);
 }
 
 .btn-primary {
@@ -212,7 +213,7 @@ svg {
 }
 
 #terms {
-    width: 10px;
+    width: 20px;
 }
 
 .terms input {
@@ -235,7 +236,8 @@ svg {
 }
 
 .invalid-msg {
-    color: red
+    color: red;
+    font-size: 14px;
 }
 
 .invalid-msg i {
@@ -263,14 +265,28 @@ svg {
 
 .quiz-top {
     color: gray;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 
 .user-info {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #E8BE21
+    color: #E8BE21;
+}
+
+#userNameDisplay, #userEmailDisplay{
+    color: black ;
+}
+
+#confirmLogoutOptionDiv{
+    background-color: rgb(229, 226, 222);
+    display: none;
+    height: 150px;
+    width: 150px;
+    position: relative;
+    z-index: 1;
+    top:100px;
 }
 
 .logout-button {
@@ -286,13 +302,13 @@ svg {
     background-color: white;
     width: 1000px;
     height: 630px;
-    border-radius: 11.84px 0px 0px 0px;
+    border-radius: 15px;
     box-shadow: 0px 20px 40px 0px #1C1C1E1A;
 }
 
 .catchy-img img {
     width: 900px;
-    height: 264.11px;
+    height: 264px;
     border-radius: 5px 0px 0px 0px;
     gap: 10px
 }
@@ -306,41 +322,29 @@ svg {
     margin-top: 20px;
 }
 
-.quiz-form input {
-    padding: 10px;
-    width: 300px;
-    border-radius: 5px;
-    border: 2px solid grey;
-    margin: 5px;
-}
-
-.quiz-form .first-row {
-    text-align: left;
-    margin: 10px 0px;
-}
-
 .start-btn-div {
     margin-top: 30px;
 }
 
 /* Quiz-Questions display page starts - question.html*/
 .ques-container {
-    padding: 20px 100px 20px 20px;
+    padding: 30px;
 }
 
 .progress-bar {
     width: 100%;
-    height: 8px;
+    height: 12px;
     background-color: #e0e0e0;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
 .progress {
     width: 20%;
     height: 100%;
-    background-color:  #F3BD00;
+    background-color: #F3BD00;
     ;
+    border-radius: 10px;
     transition: width 0.4s ease;
 }
 
@@ -369,15 +373,24 @@ svg {
 }
 
 .optionText label:hover {
-    background-color: #E8BE21;
-    width: 500px;
+    background-color: rgb(209, 222, 222);
+    box-shadow: 3px 3px 3px rgb(253, 251, 251);
+    width: 400px;
+    border-radius: 20px;
     cursor: pointer;
 }
 
-.optionText input[name="options"]:checked+label{
+.optionText input[name="options"]:checked+label {
     background-color: #E8BE21;
     border-color: #E8BE21;
-    width: 500px;
+    width: 400px;
+    border-radius: 20px;
+}
+
+.selected-option {
+    background-color: #E8BE21;
+    width: 400px;
+    border-radius: 20px;
 }
 
 /*  */
@@ -387,7 +400,7 @@ svg {
     margin: 20px 30px 0px 0px;
 }
 
-#previousquestion ,
+#previousquestion,
 #nextquestion {
     border: none;
     color: grey;
@@ -399,10 +412,9 @@ svg {
     text-align: center;
 }
 
-#previousquestion > i ,
-#nextquestion > i{
+#previousquestion>i,
+#nextquestion>i {
     font-size: 22px;
-    /* font-weight: 200; */
 }
 
 
@@ -413,11 +425,6 @@ svg {
 #options .optionText {
     font-weight: 600;
 }
-
-.selected-option {
-    background-color:  #E8BE21;
-    width: 500px;
-  }
 
 /* Quiz-Questions display page ends - question.html*/
 
@@ -465,7 +472,6 @@ svg {
     text-align: center;
 }
 
-
 .rank {
     border-radius: 10px;
     margin: 0 10px;
@@ -483,11 +489,22 @@ svg {
     height: 270px;
 }
 
+.first img{
+    position: relative;
+    z-index: 1;
+    top: 10px;
+}
+
 #second {
     background-color: #F4CE4A;
     height: 240px;
     margin-top: 80px;
     top: 30px;
+}
+
+.second .rank-number{
+    position: relative;
+    top:126px
 }
 
 #third {
@@ -497,16 +514,23 @@ svg {
     top: 50px;
 }
 
+.third .rank-number{
+    position: relative;
+    top: 155px
+}
+
 .rank-number {
     font-size: 24px;
     margin-top: 10px;
 }
 
-.score {
-    font-size: 14px;
-    color: #555;
-    gap: 0
+
+.font-heavy{
+    font-size: large;
+    color:black;
+    font-weight: 650;
 }
+
 
 /* rest score */
 .rank-list {
@@ -520,15 +544,21 @@ svg {
     width: 100%;
     position: relative;
     z-index: -1;
+    gap: 0;
 }
 
 .rank-item {
     background-color: white;
     padding: 10px;
-    margin: 5px 0;
+    margin: -10px 13px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: -100px
+    margin-top: -90px;
+    /* gap: 15px; */
+}
+
+.rank-item p, span{
+    gap: 30px;
 }
 
 /* admin panel start*/
