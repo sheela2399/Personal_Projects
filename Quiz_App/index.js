@@ -8,39 +8,43 @@ function validateSignup() {
     let invalidMsgFullName = document.getElementById("invalid-msg-fullname");
     let invalidMsgPassword = document.getElementById("invalid-msg-password");
     let invalidMsgEmail = document.getElementById("invalid-msg-email");
+    let reName = /^[a-zA-Z].*[\s\.]*$/g ;
     let reEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
-    let rePass = /^(?=.*\d)(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])(?=.*[a-z])(?=.*[A-Z]).{5,10}$/;
+    let rePass = /^(?=.*\d)(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])(?=.*[a-z])(?=.*[A-Z]).{5,15}$/;
+    let checkbox = document.getElementById("terms").checked
 
-    if (fullName == "" || email == "" || password == "") {
-        invalidMsgFullName.innerHTML = "Enter a Name";
-        invalidMsgEmail.innerHTML = "Enter a valid Email";
-        invalidMsgPassword.innerHTML = "Enter a Password"
+    if (fullName == "" || !reName.test(fullName)) {
+        invalidMsgFullName.innerHTML = "Enter a Name";  
         return false;
     }
-    else {
-        invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
-    }
+    // else {
+    //     invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+    // }
 
-    if (!reEmail.test(email)) {
+    if (!reEmail.test(email) || email == "") {
         invalidMsgEmail.innerHTML = "Enter a valid Email";
         return false;
     }
-    else {
-        invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
-    }
+    // else {
+    //     invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+    // }
 
-    if (!rePass.test(password)) {
+    if (!rePass.test(password) || password == "") {
         invalidMsgPassword.innerHTML = "Enter a valid Password with one uppercase letter, one lowercase letter, and at least one special character.";
         return false;
     }
-    else if (rePass.test(password)) {
-        invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+    // else if (rePass.test(password)) {
+    //     invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+    // }
+    if(!checkbox){
+        alert("Please check terms and condition")
+        return false;
     }
 
     else {
-        // invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
-        // invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
-        // invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+        invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+        invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+        invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
         const userData = {
             fullName: fullName,
             email: email,
@@ -48,17 +52,10 @@ function validateSignup() {
         };
         saveUserData(userData);
     }
-    fullName = "";
-    email = "";
+    document.getElementById('fullName').value = "";
+    document.getElementById('email').value = "";
+    document.getElementById('password').value = "";
 }
-
-// Function if input matches current criteria...
-// function validInputSign() {
-//     if (!fullName.length === 0 || rePass.test(password) || reEmail.test(email)) { }
-//     invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
-//     invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
-//     invalidMsgFullName.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
-// }
 
 function saveUserData(userData) {
     const storedUserData = JSON.parse(localStorage.getItem('users')) || [];
@@ -147,7 +144,7 @@ console.log(testUser.fullName);
 // Function to get user initials from full name
 function getUserInitials() {
     const names = testUser.fullName.split(' ');
-    // ]]console.log(names);
+    // console.log(names);
     if (names.length >= 2) {
         return names[0][0].toUpperCase() + names[1][0].toUpperCase(); // Initials of first and last name
     } else {
@@ -159,17 +156,29 @@ function getUserInitials() {
 function displayUserName() {
     if (testUser.fullName) {
         const userNameElement = document.getElementById("userName");
-        // const initials = getUserInitials(testUser.fullName);
-        // userNameElement.innerHTML = `Welcome, ${initials}`
-        userNameElement.innerHTML = `Welcome, ${testUser.fullName}`
+        const initials = getUserInitials(testUser.fullName);
+        userNameElement.innerHTML = `Welcome, ${initials}`
+        // userNameElement.innerHTML = `Welcome, ${testUser.fullName.toUpperCase()}`
     }
 }
 displayUserName()
 
+// function to handle logout Alert
+let logoutDiv = document.getElementById("confirmLogoutOptionDiv");
+let flag = 0;
+
 function confirmLogout() {
-    document.getElementById("confirmLogoutOptionDiv").style.display = "inline";
-    document.getElementById("userNameDisplay").innerHTML = `Hii ${testUser.fullName}`;
-    document.getElementById("userEmailDisplay").innerHTML = testUser.email;
+    if (flag == 1) {
+        logoutDiv.style.display = "none";
+        // document.querySelector(".user-info").style.flexDirection = "column";
+        flag = 0;
+    }
+    else {
+        logoutDiv.style.display = "block";
+        document.getElementById("userNameDisplay").innerHTML = `Hii ${testUser.fullName}`;
+        document.getElementById("userEmailDisplay").innerHTML = testUser.email;
+        flag = 1;
+    }
 }
 
 // Function to handle logout
@@ -406,7 +415,7 @@ function displayQuestion() {
             questionHeading.innerHTML = "<h1>Hey, this is the Last Question</h1>";
         }
         nextButton.innerHTML = index === totalQuestions - 1
-            ? "Submit and Continue"
+            ? "Submit and Continue <i class='fa-solid fa-arrow-right'></i>"
             : "Next <i class='fa-solid fa-arrow-right'></i>";
     }
     updateProgressBar();
@@ -485,7 +494,6 @@ function updateScore() {
     // console.log(score)
     // console.log(`your score is ${acc, score}`)
 }
-console.log(score)
 
 // Function to go back to the previous question
 function previousQuestion() {
@@ -516,6 +524,7 @@ function submitQuiz() {
 
         localStorage.setItem('userScores', JSON.stringify(storedScores));
 
+        console.log(score)
         window.location.href = "leaderboard.html";
     }
 }
@@ -539,6 +548,7 @@ function showLeaderboard() {
 function rankDisplay() {
     let userScores = JSON.parse(localStorage.getItem('userScores')) || [];
     let sortedUsers = userScores.sort((a, b) => b.score - a.score);
+    // console.log(sortedUsers)
 
     let currentUserName = JSON.parse(localStorage.getItem('isLoggedin')).fullName;
     let currentUser = sortedUsers.find(user => user.testUserName === currentUserName);
@@ -548,22 +558,35 @@ function rankDisplay() {
 
         // condition for 1st, 2nd, 3rd display
         if (userRank == 1) {
-            document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}st`;
+            document.getElementById("currentscore").style.display = "none"
+
+            document.getElementById("rankDisplay").innerHTML = `Wow Your Rank is: ${userRank}st`;
         }
         else if (userRank == 2) {
-            document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}nd`;
+            document.getElementById("currentscore").style.display = "none"
+
+            document.getElementById("rankDisplay").innerHTML = ` Wow Your Rank is: ${userRank}nd`;
         }
         else if (userRank == 3) {
-            document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}rd`;
-        } else {
-            document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}th`;
-            // document.getElementById("currentscore").innerHTML = `#${userRank}`;
-            document.getElementById(`top${index + 4}Name`).innerHTML = testUser.fullName;
-            document.getElementById(`top${index + 4}Score`).innerHTML = testUser.score;
+            document.getElementById("currentscore").style.display = "none"
+
+            document.getElementById("rankDisplay").innerHTML = `Wow Your Rank is: ${userRank}rd`;
         }
-        // document.getElementById("rankDisplay").innerHTML = `Your Rank: ${userRank}`;
+        // condition for userrank greater than 6 display on 4th place div
+        else if (userRank > 6) {
+            console.log('hi', currentUserName)
+
+            document.getElementById("currentUserRank").innerHTML = `#${userRank}`;
+            document.getElementById("currentUserName").innerHTML = ` ${currentUserName}`;
+            document.getElementById("currentUserScore").innerHTML = currentUser.score
+        }
+
+        if (userRank > 3) {
+            document.getElementById("rankDisplay").innerHTML = `Your Rank is : ${userRank}th`;
+        }
         document.getElementById("rankScore").innerHTML = `Your Score: ${currentUser.score}`;
-    } else {
+    }
+    else {
         document.getElementById("rankDisplay").innerHTML = "User not found.";
     }
 }

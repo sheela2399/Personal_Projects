@@ -13,15 +13,24 @@
 </head>
 
 <body>
-    <nav class="quiz-start-nav dis-row-between">
-        <div><a href="quiz.html"><img src="assests/techpaathshala_logo.png" alt="logo"></a></div>
-        <div class="user-info">
-            <span><a href="quiz.html">Home</a></span>
-            <span id="userName" class="user-name"></span>
-            <span><img src="assests/Avatar.png" alt="" onclick="confirmLogout()"></span>
-            <!-- <span class="logout-button" onclick="logout()">Logout</span> -->
-        </div>
-    </nav>
+    <header>
+        <nav class="quiz-start-nav dis-row-between">
+            <div><img src="assests/techpaathshala_logo.png" alt="logo"></div>
+            <div class="user-info">
+                    <span><a class="home" href="quiz.html">Home</a></span>
+                    <span id="userName" class="user-name"></span>
+                    <img class="Avatar" src="assests/Avatar.png" alt="" onclick="confirmLogout()">
+                <br>
+                <div id="confirmLogoutOptionDiv">
+                    <div class="confirm dis-col-center">
+                        <span id="userNameDisplay"></span>
+                        <span id="userEmailDisplay"></span>
+                        <button class="logout-button btn-primary" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div class="ques-container">
         <div id="questionHead"></div>
         <br>
@@ -33,7 +42,7 @@
         <div class="display-question">
             <div class="quest-head-items">
                 <h2 id="questionNum"></h2>
-                <h2 id="question"></h2> 
+                <h2 id="question"></h2>
 
             </div>
             <br>

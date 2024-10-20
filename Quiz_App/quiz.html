@@ -13,21 +13,23 @@
 </head>
 
 <body>
-    <nav class="quiz-start-nav dis-row-between">
-        <div><img src="assests/techpaathshala_logo.png" alt="logo"></div>
-        <div class="user-info">
-            <div>
-                <span id="userName" class="user-name"></span>
-                <span><img class="Avatar" src="assests/Avatar.png" alt="" onclick="confirmLogout()"></span>
+    <header>
+        <nav class="quiz-start-nav dis-row-between">
+            <div><img src="assests/techpaathshala_logo.png" alt="logo"></div>
+            <div class="user-info">
+                    <span id="userName" class="user-name"></span>
+                    <img class="Avatar" src="assests/Avatar.png" alt="" onclick="confirmLogout()">
+                <br>
+                <div id="confirmLogoutOptionDiv">
+                    <div class="confirm dis-col-center">
+                        <span id="userNameDisplay"></span>
+                        <span id="userEmailDisplay"></span>
+                        <button class="logout-button btn-primary" onclick="logout()">Logout</button>
+                    </div>
+                </div>
             </div>
-            <br>
-            <div id="confirmLogoutOptionDiv">
-                <span id="userNameDisplay"></span>
-                <span id="userEmailDisplay"></span>
-                <span class="logout-button" onclick="logout()">Logout</span>
-            </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <div class="quiz-main-container">
         <div class="quiz-top">

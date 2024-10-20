@@ -246,11 +246,12 @@ svg {
 
 /* Quiz- start page */
 .quiz-start-nav {
-    width: 1, 440px;
+    width: 100%;
     height: 60px;
     padding: 16px 80px 16px 80px;
     gap: 0px;
-    border-bottom: 1px solid #CBCBCB
+    border-bottom: 1px solid #CBCBCB;
+    align-items: center; 
 }
 
 .quiz-main-container {
@@ -271,22 +272,37 @@ svg {
 .user-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+    color: #E8BE21;
+    font-size: larger;
+}
+
+.home{
     color: #E8BE21;
 }
 
-#userNameDisplay, #userEmailDisplay{
-    color: black ;
+#userNameDisplay,
+#userEmailDisplay {
+    color: black;
+}
+
+.Avatar{
+    cursor: pointer;
 }
 
 #confirmLogoutOptionDiv{
-    background-color: rgb(229, 226, 222);
-    display: none;
-    height: 150px;
-    width: 150px;
-    position: relative;
-    z-index: 1;
-    top:100px;
+    display: none;  
+    border-radius: 10px;
+    background-color:  #e0d08b;
+    height: 110px;
+    width: 250px;
+    position: absolute;
+    top: 72px;
+    margin: 0 auto;
+}
+
+.confirm span{
+    margin: 5px;
 }
 
 .logout-button {
@@ -295,6 +311,7 @@ svg {
     font-size: 16px;
     font-weight: 500;
     color: rgb(5, 23, 140);
+    width: 150px;
 }
 
 .catchy-intro {
@@ -373,8 +390,8 @@ svg {
 }
 
 .optionText label:hover {
-    background-color: rgb(209, 222, 222);
-    box-shadow: 3px 3px 3px rgb(253, 251, 251);
+    /* background-color: rgb(209, 222, 222); */
+    box-shadow: 3px 3px 3px 3px rgb(192, 189, 189);
     width: 400px;
     border-radius: 20px;
     cursor: pointer;
@@ -489,7 +506,7 @@ svg {
     height: 270px;
 }
 
-.first img{
+.first img {
     position: relative;
     z-index: 1;
     top: 10px;
@@ -502,9 +519,9 @@ svg {
     top: 30px;
 }
 
-.second .rank-number{
+.second .rank-number {
     position: relative;
-    top:126px
+    top: 126px
 }
 
 #third {
@@ -514,7 +531,7 @@ svg {
     top: 50px;
 }
 
-.third .rank-number{
+.third .rank-number {
     position: relative;
     top: 155px
 }
@@ -524,13 +541,11 @@ svg {
     margin-top: 10px;
 }
 
-
-.font-heavy{
+.font-heavy {
     font-size: large;
-    color:black;
+    color: black;
     font-weight: 650;
 }
-
 
 /* rest score */
 .rank-list {
@@ -540,7 +555,7 @@ svg {
 }
 
 .rank-list img {
-    height: 300px;
+    height: 380px;
     width: 100%;
     position: relative;
     z-index: -1;
@@ -557,8 +572,17 @@ svg {
     /* gap: 15px; */
 }
 
-.rank-item p, span{
+.rank-item p,
+span {
     gap: 30px;
 }
 
+#currentUserRank{
+    margin-right: 5px;
+}
+
+#currentscore{
+    background-color: #E8BE21;
+}
+/* leaderboard css ends */
 /* admin panel start*/

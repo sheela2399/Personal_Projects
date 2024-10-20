@@ -14,16 +14,26 @@
 </head>
 
 <body>
+    <header>
     <nav class="quiz-start-nav dis-row-between">
-        <div><a href="quiz.html"><img src="assests/techpaathshala_logo.png" alt="logo"></a></div>
+        <div><img src="assests/techpaathshala_logo.png" alt="logo"></div>
         <div class="user-info">
-            <span><a href="quiz.html">Home</a></span>
-            <span id="userName" class="user-name"></span>
-            <span><img src="assests/Avatar.png" alt="" onclick="confirmLogout()"></span>
-            <span class="logout-button" onclick="logout()">Logout</span>
+            <div>
+                <span><a href="quiz.html">Home</a></span>
+                <span id="userName" class="user-name"></span>
+                <img class="Avatar" src="assests/Avatar.png" alt="" onclick="confirmLogout()">
+            </div>
+            <br>
+            <div id="confirmLogoutOptionDiv">
+                <div class="confirm dis-col-center">
+                    <span id="userNameDisplay"></span>
+                    <span id="userEmailDisplay"></span>
+                    <button class="logout-button btn-primary" onclick="logout()">Logout</button>
+                </div>
+            </div>
         </div>
     </nav>
-
+</header>
     <div class="rank-heading dis-col-center">
         <h1 id="rankDisplay"></h1>
         <h2 id="rankScore"></h2>
@@ -74,6 +84,12 @@
     <div class="rank-list">
         <img src="assests/Vector 15.png" alt="">
         <div class="ranking font-heavy">
+            <div class="rank-item dis-row-between" id="currentscore">
+               <div class=" dis-row-even" id="ExtraRank">
+                   <p id="currentUserRank"></p> <span id="currentUserName" class="topernames"></span>
+               </div> 
+                <p id="currentUserScore" class="topScores"></p>
+            </div>
             <div class="rank-item dis-row-between">
                 <p>#6 <span id="top6Name" class="topernames"></span></p>
                 <p id="top6Score" class="topScores"></p>
@@ -83,9 +99,8 @@
                 <p id="top5Score" class="topScores"></p>
             </div>
             <div class="rank-item dis-row-between">
-                <p id="currentscore">#4 <span id="top4Name" class="topernames"></span></p>
+                <p >#4 <span id="top4Name" class="topernames"></span></p>
                 <p id="top4Score" class="topScores"></p>
-                <!-- <div class = "font-heavy"> hii</div> -->
             </div>
         </div>
     </div>
