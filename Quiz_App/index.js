@@ -1,7 +1,17 @@
 // Signup form code
 // document.getElementById('signupForm').addEventListener('submit', function (event) {
 //     event.preventDefault();
+
+// const url = window.location.pathname;
+// const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+// if ((url === '/question.html' || url === '/quiz.html') && !isLoggedIn) {
+//     window.location = "/index.html"
+//     // return;
+// }
+
 function validateSignup() {
+    console.log("in")
     let fullName = document.getElementById('fullName').value;
     let email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -40,7 +50,6 @@ function validateSignup() {
         alert("Please check terms and condition")
         return false;
     }
-
     else {
         invalidMsgEmail.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
         invalidMsgPassword.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
@@ -67,7 +76,7 @@ function saveUserData(userData) {
     storedUserData.push(userData);
     localStorage.setItem('users', JSON.stringify(storedUserData));
     alert("Registration Done Successfully");
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 }
 
 function passwordHideShow() {
@@ -184,7 +193,16 @@ function confirmLogout() {
 // Function to handle logout
 function logout() {
     localStorage.removeItem("isLoggedin"); // Optionally remove login status
-    window.location.href = "login.html"; // Redirect to login page
+    window.location.href = "index.html"; // Redirect to login page
+}
+
+// Function to take image input
+let editOption = document.getElementsByClassName("edit-button")
+let AvatarPic = document.getElementById("AvatarPic")
+function editPic(){
+   console.log(editOption, AvatarPic) 
+//    personalAccount = document.querySelector(".account-img");
+
 }
 
 // quiz page code ends....
@@ -575,6 +593,7 @@ function rankDisplay() {
         // condition for userrank greater than 6 display on 4th place div
         else if (userRank > 6) {
             console.log('hi', currentUserName)
+            document.getElementById("currentscore").style.backgroundColor = " #E8BE21"
 
             document.getElementById("currentUserRank").innerHTML = `#${userRank}`;
             document.getElementById("currentUserName").innerHTML = ` ${currentUserName}`;
@@ -601,7 +620,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // If user is not logged in, redirect to login page
     if (!userLoggedIn) {
         alert("Please login first");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     }
 });
 
